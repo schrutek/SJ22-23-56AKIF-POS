@@ -1,0 +1,15 @@
+C:\HTL\Unterricht\SJ2223\56AKIF\SJ22-23-56AKIF-POS\Uebung01\src\Spg.Uebung1.App\obj\Debug\net6.0\Spg.Uebung1.App.csproj.AssemblyReference.cache
+C:\HTL\Unterricht\SJ2223\56AKIF\SJ22-23-56AKIF-POS\Uebung01\src\Spg.Uebung1.App\obj\Debug\net6.0\Spg.Uebung1.App.GeneratedMSBuildEditorConfig.editorconfig
+C:\HTL\Unterricht\SJ2223\56AKIF\SJ22-23-56AKIF-POS\Uebung01\src\Spg.Uebung1.App\obj\Debug\net6.0\Spg.Uebung1.App.AssemblyInfoInputs.cache
+C:\HTL\Unterricht\SJ2223\56AKIF\SJ22-23-56AKIF-POS\Uebung01\src\Spg.Uebung1.App\obj\Debug\net6.0\Spg.Uebung1.App.AssemblyInfo.cs
+C:\HTL\Unterricht\SJ2223\56AKIF\SJ22-23-56AKIF-POS\Uebung01\src\Spg.Uebung1.App\obj\Debug\net6.0\Spg.Uebung1.App.csproj.CoreCompileInputs.cache
+C:\HTL\Unterricht\SJ2223\56AKIF\SJ22-23-56AKIF-POS\Uebung01\src\Spg.Uebung1.App\bin\Debug\net6.0\Spg.Uebung1.App.exe
+C:\HTL\Unterricht\SJ2223\56AKIF\SJ22-23-56AKIF-POS\Uebung01\src\Spg.Uebung1.App\bin\Debug\net6.0\Spg.Uebung1.App.deps.json
+C:\HTL\Unterricht\SJ2223\56AKIF\SJ22-23-56AKIF-POS\Uebung01\src\Spg.Uebung1.App\bin\Debug\net6.0\Spg.Uebung1.App.runtimeconfig.json
+C:\HTL\Unterricht\SJ2223\56AKIF\SJ22-23-56AKIF-POS\Uebung01\src\Spg.Uebung1.App\bin\Debug\net6.0\Spg.Uebung1.App.dll
+C:\HTL\Unterricht\SJ2223\56AKIF\SJ22-23-56AKIF-POS\Uebung01\src\Spg.Uebung1.App\bin\Debug\net6.0\Spg.Uebung1.App.pdb
+C:\HTL\Unterricht\SJ2223\56AKIF\SJ22-23-56AKIF-POS\Uebung01\src\Spg.Uebung1.App\obj\Debug\net6.0\Spg.Uebung1.App.dll
+C:\HTL\Unterricht\SJ2223\56AKIF\SJ22-23-56AKIF-POS\Uebung01\src\Spg.Uebung1.App\obj\Debug\net6.0\refint\Spg.Uebung1.App.dll
+C:\HTL\Unterricht\SJ2223\56AKIF\SJ22-23-56AKIF-POS\Uebung01\src\Spg.Uebung1.App\obj\Debug\net6.0\Spg.Uebung1.App.pdb
+C:\HTL\Unterricht\SJ2223\56AKIF\SJ22-23-56AKIF-POS\Uebung01\src\Spg.Uebung1.App\obj\Debug\net6.0\Spg.Uebung1.App.genruntimeconfig.cache
+C:\HTL\Unterricht\SJ2223\56AKIF\SJ22-23-56AKIF-POS\Uebung01\src\Spg.Uebung1.App\obj\Debug\net6.0\ref\Spg.Uebung1.App.dll
