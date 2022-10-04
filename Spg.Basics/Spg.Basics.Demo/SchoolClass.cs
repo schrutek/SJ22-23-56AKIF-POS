@@ -6,7 +6,38 @@ using System.Threading.Tasks;
 
 namespace Spg.Basics.Demo
 {
-    internal class SchoolClass
+    public class SchoolClass
     {
+        public string Name 
+        {
+            get 
+            {
+                return _name;
+            }
+            set
+            {
+                if (value.Length <= 5)
+                {
+                    throw new ArgumentException("Klassenname ist zu kurz!");
+                }
+                _name = value;
+            }
+        }
+        private string _name = string.Empty;
+
+        //public SchoolClass(string name, int maxStudents)
+        //{
+        //    _name = name;
+        //    MaxStudents = maxStudents;
+        //}
+
+        public int MaxStudents { get; init; }
+
+        //public void SetMaxStudents(int maxStudents)
+        //{
+        //    MaxStudents = maxStudents;
+        //}
+
+        public List<Student> Students { get; set; }
     }
 }

@@ -10,3 +10,15 @@ C:\HTL\Unterricht\SJ2223\56AKIF\Spg.Basics\Spg.Basics.Database\obj\Debug\net6.0\
 C:\HTL\Unterricht\SJ2223\56AKIF\Spg.Basics\Spg.Basics.Database\obj\Debug\net6.0\refint\Spg.Basics.Database.dll
 C:\HTL\Unterricht\SJ2223\56AKIF\Spg.Basics\Spg.Basics.Database\obj\Debug\net6.0\Spg.Basics.Database.pdb
 C:\HTL\Unterricht\SJ2223\56AKIF\Spg.Basics\Spg.Basics.Database\obj\Debug\net6.0\ref\Spg.Basics.Database.dll
+C:\HTL\Unterricht\SJ2223\56AKIF\SJ22-23-56AKIF-POS\Spg.Basics\Spg.Basics.Database\bin\Debug\net6.0\Spg.Basics.Database.deps.json
+C:\HTL\Unterricht\SJ2223\56AKIF\SJ22-23-56AKIF-POS\Spg.Basics\Spg.Basics.Database\bin\Debug\net6.0\Spg.Basics.Database.dll
+C:\HTL\Unterricht\SJ2223\56AKIF\SJ22-23-56AKIF-POS\Spg.Basics\Spg.Basics.Database\bin\Debug\net6.0\Spg.Basics.Database.pdb
+C:\HTL\Unterricht\SJ2223\56AKIF\SJ22-23-56AKIF-POS\Spg.Basics\Spg.Basics.Database\obj\Debug\net6.0\Spg.Basics.Database.csproj.AssemblyReference.cache
+C:\HTL\Unterricht\SJ2223\56AKIF\SJ22-23-56AKIF-POS\Spg.Basics\Spg.Basics.Database\obj\Debug\net6.0\Spg.Basics.Database.GeneratedMSBuildEditorConfig.editorconfig
+C:\HTL\Unterricht\SJ2223\56AKIF\SJ22-23-56AKIF-POS\Spg.Basics\Spg.Basics.Database\obj\Debug\net6.0\Spg.Basics.Database.AssemblyInfoInputs.cache
+C:\HTL\Unterricht\SJ2223\56AKIF\SJ22-23-56AKIF-POS\Spg.Basics\Spg.Basics.Database\obj\Debug\net6.0\Spg.Basics.Database.AssemblyInfo.cs
+C:\HTL\Unterricht\SJ2223\56AKIF\SJ22-23-56AKIF-POS\Spg.Basics\Spg.Basics.Database\obj\Debug\net6.0\Spg.Basics.Database.csproj.CoreCompileInputs.cache
+C:\HTL\Unterricht\SJ2223\56AKIF\SJ22-23-56AKIF-POS\Spg.Basics\Spg.Basics.Database\obj\Debug\net6.0\Spg.Basics.Database.dll
+C:\HTL\Unterricht\SJ2223\56AKIF\SJ22-23-56AKIF-POS\Spg.Basics\Spg.Basics.Database\obj\Debug\net6.0\refint\Spg.Basics.Database.dll
+C:\HTL\Unterricht\SJ2223\56AKIF\SJ22-23-56AKIF-POS\Spg.Basics\Spg.Basics.Database\obj\Debug\net6.0\Spg.Basics.Database.pdb
+C:\HTL\Unterricht\SJ2223\56AKIF\SJ22-23-56AKIF-POS\Spg.Basics\Spg.Basics.Database\obj\Debug\net6.0\ref\Spg.Basics.Database.dll
