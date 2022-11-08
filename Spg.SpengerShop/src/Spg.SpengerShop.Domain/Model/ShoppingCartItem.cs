@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Spg.Uebung1.App
+namespace Spg.SpengerShop.Domain.Model
 {
-    public class Student
+    public class ShoppingCartItem
     {
+        public int Id { get; set; }
     }
 }

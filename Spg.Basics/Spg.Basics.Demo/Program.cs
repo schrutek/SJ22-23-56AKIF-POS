@@ -17,6 +17,7 @@ person.Gender = Genders.Male;
 
 string x = person?.FirstName ?? "noName";
 
+
 if (person is Student)
 {
     Console.WriteLine("Objekt ist Student!");
@@ -84,7 +85,8 @@ List<SchoolClass> schoolClasses = new List<SchoolClass>()
     new SchoolClass() { MaxStudents=12, Name="" }
 };
 
-//schoolClasses[1].MaxStudents = 9;
+schoolClasses[1].Name = "5AKIF";
+schoolClasses[1].Students.ElementAt(2).FirstName = "Martin";
 
 
 schoolClass.Name = "5AKIF";

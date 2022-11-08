@@ -38,6 +38,6 @@ namespace Spg.Basics.Demo
         //    MaxStudents = maxStudents;
         //}
 
-        public List<Student> Students { get; set; }
+        public List<Student> Students { get; set; } = new();
     }
 }

@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Q2VorWwLZItr/f757Milr2YLEfR5jN/U90CrZowv3m2syJ9s+8k9UcNgXFiOEjbNY5ySLjaVJvu9BwcJy1DG6A==",
+  "dgSpecHash": "ZWcKWPYhoOk3eW/6DHx9+/mhToWYKkjku4uJF88out0jjBc9dC3CBj8UkHWVOFDAFqkc3oFesuc3g3Nv28c8Ag==",
   "success": true,
   "projectFilePath": "C:\\HTL\\Unterricht\\SJ2223\\56AKIF\\SJ22-23-56AKIF-POS\\Spg.Basics\\Spg.Basics.Demo\\Spg.Basics.Demo.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\marti\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
   "logs": []
 }
