@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Spg.Basics.Demo;
+using Spg.Basics.Demo.Delegates;
 using System.Globalization;
 using System.Reflection;
 
@@ -51,19 +52,19 @@ Console.WriteLine(a?.ToString() ?? "");
 
 Console.WriteLine(a.HasValue ? a.Value : ""); // das gleiche wie in Java (if-Kurzschreibweise)
 
-string eingabe = Console.In.ReadLine();
+//string eingabe = Console.In.ReadLine();
 
 // Parse:
 
 
 int eingabeConverted; // = int.Parse(eingabe);
 
-if (!int.TryParse(eingabe, out eingabeConverted))
-{
-    Console.WriteLine("Keine Zahl!!!");
-}
+//if (!int.TryParse(eingabe, out eingabeConverted))
+//{
+//    Console.WriteLine("Keine Zahl!!!");
+//}
 
-Console.WriteLine(eingabeConverted);
+//Console.WriteLine(eingabeConverted);
 
 
 SchoolClass schoolClass = new SchoolClass() { Name = "", MaxStudents = 32 };
@@ -93,5 +94,44 @@ schoolClass.Name = "5AKIF";
 //schoolClass.MaxStudents = 32;
 
 Console.WriteLine(schoolClass.Name);
+
+
+MyStudentList students = new MyStudentList()
+{
+    new Student() { FirstName="AFirst01", LastName="ALast01", BirthDate=new DateTime(2012, 05, 03) },
+    new Student() { FirstName="AFirst02", LastName="ALast02", BirthDate=new DateTime(2002, 06, 03) },
+    new Student() { FirstName="BFirst03", LastName="BLast03", BirthDate=new DateTime(1977, 04, 03) },
+    new Student() { FirstName="CFirst04", LastName="CLast04", BirthDate=new DateTime(2000, 02, 03) },
+    new Student() { FirstName="AFirst10", LastName="ALast10", BirthDate=new DateTime(1981, 03, 03) },
+    new Student() { FirstName="CFirst11", LastName="CLast11", BirthDate=new DateTime(1990, 01, 03) },
+};
+
+MyStudentList results = students
+    .Filter(s => s.BirthDate < new DateTime(2000, 01, 01))
+    .Filter(s => s.FirstName.Contains("C"));
+
+MyStudentList results2 = students
+    .Filter(s => s.BirthDate < new DateTime(2000, 01, 01) && s.FirstName.Contains("C"));
+
+
+foreach (Student item in results2)
+{
+    Console.WriteLine(item.ToString());
+}
+
+
+Person person2 = "Bill,Gates,US".Parse<Person>();
+
+
+//bool LastNameConatinsA(Student s)
+//{
+//    return s.LastName.Contains("A");
+//}
+
+//bool BirthDateBefore2000(Student s)
+//{
+//    return s.BirthDate < new DateTime(2000, 01, 01);
+//}
+
 
 Console.In.ReadLine();

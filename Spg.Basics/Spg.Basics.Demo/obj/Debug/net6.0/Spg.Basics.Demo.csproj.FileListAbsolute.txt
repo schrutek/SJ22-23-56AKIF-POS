@@ -34,3 +34,4 @@ C:\HTL\Unterricht\SJ2223\56AKIF\SJ22-23-56AKIF-POS\Spg.Basics\Spg.Basics.Demo\ob
 C:\HTL\Unterricht\SJ2223\56AKIF\SJ22-23-56AKIF-POS\Spg.Basics\Spg.Basics.Demo\obj\Debug\net6.0\Spg.Basics.Demo.pdb
 C:\HTL\Unterricht\SJ2223\56AKIF\SJ22-23-56AKIF-POS\Spg.Basics\Spg.Basics.Demo\obj\Debug\net6.0\Spg.Basics.Demo.genruntimeconfig.cache
 C:\HTL\Unterricht\SJ2223\56AKIF\SJ22-23-56AKIF-POS\Spg.Basics\Spg.Basics.Demo\obj\Debug\net6.0\ref\Spg.Basics.Demo.dll
+C:\HTL\Unterricht\SJ2223\56AKIF\SJ22-23-56AKIF-POS\Spg.Basics\Spg.Basics.Demo\bin\Debug\net6.0\Newtonsoft.Json.dll

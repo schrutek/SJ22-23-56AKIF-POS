@@ -16,9 +16,9 @@ namespace Spg.Basics.Demo
             }
             set
             {
-                if (value.Length <= 5)
+                if (value.Length <= 1)
                 {
-                    throw new ArgumentException("Klassenname ist zu kurz!");
+                    //throw new ArgumentException("Klassenname ist zu kurz!");
                 }
                 _name = value;
             }
