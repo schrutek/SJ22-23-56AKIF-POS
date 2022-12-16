@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Spg.Basics.Demo.Delegates
 {
-    public delegate bool FilterHandler(Student s);
+    //public delegate bool FilterHandler(Student s);
 
     public class MyStudentList : List<Student>
     {
-        public MyStudentList Filter(FilterHandler predicate)
+        public MyStudentList Filter(Func<Student, bool> predicate)
         {
             MyStudentList list = new MyStudentList();
             foreach (Student item in this)

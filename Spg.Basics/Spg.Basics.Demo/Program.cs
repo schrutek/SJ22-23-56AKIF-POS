@@ -111,7 +111,7 @@ MyStudentList results = students
     .Filter(s => s.FirstName.Contains("C"));
 
 MyStudentList results2 = students
-    .Filter(s => s.BirthDate < new DateTime(2000, 01, 01) && s.FirstName.Contains("C"));
+    .Filter(s => s.LastName.Contains("A"));
 
 
 foreach (Student item in results2)
@@ -123,15 +123,15 @@ foreach (Student item in results2)
 Person person2 = "Bill,Gates,US".Parse<Person>();
 
 
-//bool LastNameConatinsA(Student s)
-//{
-//    return s.LastName.Contains("A");
-//}
+bool LastNameConatinsA(Student s)
+{
+    return s.LastName.Contains("A");
+}
 
-//bool BirthDateBefore2000(Student s)
-//{
-//    return s.BirthDate < new DateTime(2000, 01, 01);
-//}
+bool BirthDateBefore2000(Student s)
+{
+    return s.BirthDate < new DateTime(2000, 01, 01);
+}
 
 
 Console.In.ReadLine();

@@ -15,7 +15,7 @@ namespace Spg.Parsable.Demo
         public DateTime BirthDate { get; private set; }
 
         /// <summary>
-        /// Leerkonstructor immer gut, weil EF-Core diesen benötigt.
+        /// Leerkonstruktor immer gut, weil EF-Core diesen benötigt.
         /// Bitte vor unerlaubtem Zugriff verstecken (<code>protected</code>)
         /// </summary>
         protected Person()

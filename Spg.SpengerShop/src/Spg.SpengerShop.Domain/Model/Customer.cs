@@ -15,15 +15,37 @@ namespace Spg.SpengerShop.Domain.Model
 
     public class Customer
     {
+        public int Id { get; private set; }
         public Genders Gender { get; set; }
-        public string CustomerNumber { get; set; } = string.Empty;
+        public long CustomerNumber { get; private set; }
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
         public string EMail { get; set; } = string.Empty;
-        public DateTime BirthDate { get; set; }
-        public string Address { get; set; } = string.Empty;
-        public DateTime RegistrationDateTime { get; set; }
+        public DateTime BirthDate { get; private set; }
+        public DateTime RegistrationDateTime { get; private set; }
+        public Address? Address { get; set; } = default!;
+        public string? PhoneNumber { get; set; }
 
-        public List<ShoppingCart> ShoppingCarts { get; set; } = new();
+        private List<ShoppingCart> _shoppingCarts = new();
+        public IReadOnlyList<ShoppingCart> ShoppingCarts => _shoppingCarts;
+
+        protected Customer()
+        { }
+        public Customer(Genders gender, 
+            long customerNumber, 
+            string firstName, 
+            string lastName, 
+            string eMail, 
+            DateTime birthDate,
+            DateTime registrationDateTime)
+        {
+            Gender = gender;
+            CustomerNumber = customerNumber;
+            FirstName = firstName;
+            LastName = lastName;
+            EMail = eMail;
+            BirthDate = birthDate;
+            RegistrationDateTime = registrationDateTime;
+        }
     }
 }
