@@ -13,9 +13,8 @@ namespace Spg.SpengerShop.Domain.Model
         Other = 2 
     }
 
-    public class Customer
+    public class Customer : EntityBase
     {
-        public int Id { get; private set; }
         public Genders Gender { get; set; }
         public long CustomerNumber { get; private set; }
         public string FirstName { get; set; } = string.Empty;
@@ -27,7 +26,7 @@ namespace Spg.SpengerShop.Domain.Model
         public string? PhoneNumber { get; set; }
 
         private List<ShoppingCart> _shoppingCarts = new();
-        public IReadOnlyList<ShoppingCart> ShoppingCarts => _shoppingCarts;
+        public virtual IReadOnlyList<ShoppingCart> ShoppingCarts => _shoppingCarts;
 
         protected Customer()
         { }

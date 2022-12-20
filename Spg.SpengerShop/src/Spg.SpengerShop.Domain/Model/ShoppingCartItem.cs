@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace Spg.SpengerShop.Domain.Model
 {
-    public class ShoppingCartItem
+    public class ShoppingCartItem : EntityBase
     {
-        public int Id { get; private set; }
-
         public int ShoppingCartNavigationId { get; set; }
-        public ShoppingCart ShoppingCartNavigation { get; set; } = default!;
+        public virtual ShoppingCart ShoppingCartNavigation { get; set; } = default!;
         public int ProductNavigationId { get; set; }
-        public Product ProductNavigation { get; set; } = default!;
+        public virtual Product ProductNavigation { get; set; } = default!;
 
         protected ShoppingCartItem()
         { }

@@ -114,6 +114,21 @@ MyStudentList results2 = students
     .Filter(s => s.LastName.Contains("A"));
 
 
+
+List<Student> students2 = new List<Student>()
+{
+    new Student() { FirstName="AFirst01", LastName="ALast01", BirthDate=new DateTime(2012, 05, 03) },
+    new Student() { FirstName="AFirst02", LastName="ALast02", BirthDate=new DateTime(2002, 06, 03) },
+    new Student() { FirstName="BFirst03", LastName="BLast03", BirthDate=new DateTime(1977, 04, 03) },
+    new Student() { FirstName="CFirst04", LastName="CLast04", BirthDate=new DateTime(2000, 02, 03) },
+    new Student() { FirstName="AFirst10", LastName="ALast10", BirthDate=new DateTime(1981, 03, 03) },
+    new Student() { FirstName="CFirst11", LastName="CLast11", BirthDate=new DateTime(1990, 01, 03) },
+};
+
+IEnumerable<Student> result = students2.Where(s => s.FirstName.StartsWith("A"));
+
+
+
 foreach (Student item in results2)
 {
     Console.WriteLine(item.ToString());
