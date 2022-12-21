@@ -23,8 +23,6 @@ namespace Spg.SpengerShop.Domain.Model
 
         public int CategoryId { get; set; }
         public virtual Category CategoryNavigation { get; private set; } = default!;
-        //public int CatPriceTypeId { get; set; }
-        //public virtual CatPriceType CatPriceTypeNavigation { get; private set; } = null!;
 
 
         protected Product()

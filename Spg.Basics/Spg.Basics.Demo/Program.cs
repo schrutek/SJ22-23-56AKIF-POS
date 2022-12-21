@@ -126,6 +126,7 @@ List<Student> students2 = new List<Student>()
 };
 
 IEnumerable<Student> result = students2.Where(s => s.FirstName.StartsWith("A"));
+result.
 
 
 

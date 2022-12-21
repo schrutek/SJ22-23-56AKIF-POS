@@ -1,5 +1,6 @@
 ﻿using Bogus;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Spg.SpengerShop.Domain.Model;
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,8 @@ namespace Spg.SpengerShop.Infrastructure
         // 4. Konfiguration vor DB Erstellung
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            optionsBuilder.LogTo(Console.WriteLine);
+
             //if (!optionsBuilder.IsConfigured)
             //{
             //    optionsBuilder.UseSqlite("Data Source = Server=142.147.258.169;Database=myDataBase;User Id=Ich;Password=Geheim!");
