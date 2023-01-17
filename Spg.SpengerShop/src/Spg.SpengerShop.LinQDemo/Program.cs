@@ -3,7 +3,7 @@ using Spg.SpengerShop.Domain.Model;
 using Spg.SpengerShop.Infrastructure;
 
 DbContextOptionsBuilder optionsBuilder = new DbContextOptionsBuilder();
-optionsBuilder.UseSqlite("Data Source=SpengerShop_Test.db");
+optionsBuilder.UseSqlite("Data Source=./../../../SpengerShop_Test.db");
 
 SpengerShopContext db = new SpengerShopContext(optionsBuilder.Options);
 db.Database.EnsureDeleted();
@@ -33,8 +33,12 @@ var result05 = db.Products
 
 // Liste aller Customers, die das Produckt 'Awesome Cotton Shoes' gekauft haben.
 var result06 = db.Customers
-    .Include(c => c.ShoppingCarts
-        .Where(s => s.ShoppingCartItems
+    .Include(c => c.ShoppingCarts.Where(s => s.CustomerNavigationId == c.Id)
+        .Where(s2 => s2.ShoppingCartItems
             .Any(i => i.ProductNavigation.Name == "Awesome Cotton Shoes")));
+
+var result07 = db.ShoppingCarts.Where(s => s.ShoppingCartItems.Any(i => i.ProductNavigation.Name == "Awesome Cotton Shoes"));
+
+var result100 = new { Id = 1, Name = "Martin Schrutek" };
 
 Console.Read();

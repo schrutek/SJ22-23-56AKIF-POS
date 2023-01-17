@@ -15,5 +15,11 @@ namespace Spg.SpengerShop.Domain.Model
 
         protected ShoppingCartItem()
         { }
+
+        public ShoppingCartItem(ShoppingCart shoppingCartNavigation, Product productNavigation)
+        {
+            ShoppingCartNavigation = shoppingCartNavigation;
+            ProductNavigation= productNavigation;
+        }
     }
 }

@@ -215,14 +215,17 @@ namespace Spg.SpengerShop.Infrastructure
             SaveChanges();
 
 
-            //for (int i = 0; i <= 20; i++)
-            //{
-            //    Product product = new Faker().Random.ListItem(Products.ToList());
-            //    ShoppingCart shoppingCart = new Faker().Random.ListItem(ShoppingCarts.ToList());
-            //    ShoppingCartItem shoppingCartItem = new ShoppingCartItem(name: product.Name, tax: product.Prices[0].Tax, nett: product.Prices[0].Nett, shoppingCart: shoppingCart, product: product);
-            //    shoppingCart.AddItem(shoppingCartItem);
-            //    SaveChanges();
-            //}
+            List<ShoppingCartItem> shoppingCartItems = new Faker<ShoppingCartItem>("de").CustomInstantiator(f =>
+                new ShoppingCartItem(f.Random.ListItem(shoppingCarts), f.Random.ListItem(products))
+            )
+            .Rules((f, i) =>
+            {
+                i.LastChangeDate = f.Date.Between(new DateTime(2020, 01, 01), DateTime.Now).Date.OrNull(f, 0.3f);
+            })
+            .Generate(800)
+            .ToList();
+            ShoppingCartItems.AddRange(shoppingCartItems);
+            SaveChanges();
         }
     }
 }
