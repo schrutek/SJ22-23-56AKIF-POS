@@ -37,6 +37,28 @@ var result06 = db.Customers
         .Where(s2 => s2.ShoppingCartItems
             .Any(i => i.ProductNavigation.Name == "Awesome Cotton Shoes")));
 
+var result101 = db.Set<Product>().AsEnumerable();
+
+// Do Something
+
+if (true)
+{
+    result101 = result101.Where(p => p.Prices
+            .Any(p => p.CatPriceTypeNavigation.ShortName == "Normal"));
+}
+
+// Do Something
+
+if (true)
+{
+    result101 = result101.OrderBy(p => p.Name);
+}
+
+// Do Something
+
+
+var fionalResult = result101.Select(p => new { p.Name, Ean = p.Ean, SecondName = r.Name });
+
 var result07 = db.ShoppingCarts.Where(s => s.ShoppingCartItems.Any(i => i.ProductNavigation.Name == "Awesome Cotton Shoes"));
 
 var result100 = new { Id = 1, Name = "Martin Schrutek" };

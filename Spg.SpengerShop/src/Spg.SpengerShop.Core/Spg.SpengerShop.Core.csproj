@@ -7,13 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\Spg.SpengerShop.Domain\Spg.SpengerShop.Domain.csproj" />
-    <ProjectReference Include="..\src\Spg.SpengerShop.Repository\Spg.SpengerShop.Repository.csproj" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Customers\" />
-    <Folder Include="Shops\" />
+    <ProjectReference Include="..\Spg.SpengerShop.Infrastructure\Spg.SpengerShop.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

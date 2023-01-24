@@ -37,11 +37,11 @@ namespace Spg.SpengerShop.Infrastructure
         // 4. Konfiguration vor DB Erstellung
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.LogTo(Console.WriteLine);
-
+            //optionsBuilder.LogTo(Console.WriteLine);
+            // Data Source = Server=142.147.258.169;Database=myDataBase;User Id=Ich;Password=Geheim!
             //if (!optionsBuilder.IsConfigured)
             //{
-            //    optionsBuilder.UseSqlite("Data Source = Server=142.147.258.169;Database=myDataBase;User Id=Ich;Password=Geheim!");
+            //    optionsBuilder.UseSqlite("Data Source=SpengerShop.db");
             //}
         }
 

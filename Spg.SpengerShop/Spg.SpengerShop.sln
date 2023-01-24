@@ -15,7 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spg.SpengerShop.MvcFrontEnd
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spg.SpengerShop.Domain.Test", "src\Spg.SpengerShop.Domain.Test\Spg.SpengerShop.Domain.Test.csproj", "{7401F7F9-1250-4541-84E6-559E6D71DC52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spg.SpengerShop.LinQDemo", "src\Spg.SpengerShop.LinQDemo\Spg.SpengerShop.LinQDemo.csproj", "{5A00CC53-F523-4996-A887-D5C954EB1F1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spg.SpengerShop.LinQDemo", "src\Spg.SpengerShop.LinQDemo\Spg.SpengerShop.LinQDemo.csproj", "{5A00CC53-F523-4996-A887-D5C954EB1F1F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spg.SpengerShop.ConsoleFrontEnd", "src\Spg.SpengerShop.ConsoleFrontEnd\Spg.SpengerShop.ConsoleFrontEnd.csproj", "{650488F7-7C9A-41D9-B57D-EC8B666C17E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spg.SpengerShop.Core", "src\Spg.SpengerShop.Core\Spg.SpengerShop.Core.csproj", "{A2C13004-0BBD-4C51-94C8-D933265CC755}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +55,14 @@ Global
 		{5A00CC53-F523-4996-A887-D5C954EB1F1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A00CC53-F523-4996-A887-D5C954EB1F1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A00CC53-F523-4996-A887-D5C954EB1F1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{650488F7-7C9A-41D9-B57D-EC8B666C17E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{650488F7-7C9A-41D9-B57D-EC8B666C17E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{650488F7-7C9A-41D9-B57D-EC8B666C17E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{650488F7-7C9A-41D9-B57D-EC8B666C17E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2C13004-0BBD-4C51-94C8-D933265CC755}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2C13004-0BBD-4C51-94C8-D933265CC755}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2C13004-0BBD-4C51-94C8-D933265CC755}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2C13004-0BBD-4C51-94C8-D933265CC755}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
