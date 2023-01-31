@@ -11,9 +11,10 @@ builder.Services.AddControllersWithViews();
 
 string? connectionString = builder.Configuration.GetConnectionString("MyConnection");
 
-// Add Services to ServicesCollection
+// Add Services to IServiceCollection
 builder.Services.AddTransient<ProductService>();
 builder.Services.AddTransient<IProductRepository, TestProductRepository>();
+
 builder.Services.ConfigureSqLite(connectionString);
 
 var app = builder.Build();

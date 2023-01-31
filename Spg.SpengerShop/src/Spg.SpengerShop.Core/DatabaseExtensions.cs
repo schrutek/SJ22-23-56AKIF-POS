@@ -22,5 +22,9 @@ namespace Spg.SpengerShop.Core
                 }
             });
         }
+
+        // TODO: Extension Method für alle Services
+
+        // TODO: Extension Method für alle Repositories
     }
 }

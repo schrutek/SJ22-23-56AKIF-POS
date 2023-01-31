@@ -18,7 +18,7 @@ namespace Spg.SpengerShop.Repository.Products
             _db = db;
         }
 
-        public IEnumerable<Product> GetAll()
+        public IQueryable<Product> GetAll()
         {
             return _db.Products;
         }

@@ -9,6 +9,6 @@ namespace Spg.SpengerShop.Repository.Products
 {
     public interface IProductRepository
     {
-        IEnumerable<Product> GetAll();
+        IQueryable<Product> GetAll();
     }
 }

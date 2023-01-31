@@ -27,9 +27,11 @@ namespace Spg.SpengerShop.Application.Products
         //public IProductRepository Repository { get { return _repository; } set { _repository = value; } }
 
 
-        public IEnumerable<Product> GetAll()
+        public IQueryable<Product> GetAll(string filter)
         {
-            return _repository.GetAll();
+            IQueryable<Product> products = _repository.GetAll();
+            products = products.Where(p => p.Name.Contains(filter));
+            return products;
         }
     }
 }
