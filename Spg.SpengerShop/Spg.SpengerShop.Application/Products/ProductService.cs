@@ -1,4 +1,5 @@
-﻿using Spg.SpengerShop.Domain.Model;
+﻿using Spg.SpengerShop.Domain.Interfaces;
+using Spg.SpengerShop.Domain.Model;
 using Spg.SpengerShop.Repository.Products;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Spg.SpengerShop.Application.Products
 {
-    public class ProductService
+    public class ProductService : IReadOnlyProductService, IAddableProductService, IUpdateableProductService
     {
         private readonly IProductRepository _repository;
 
@@ -27,11 +28,21 @@ namespace Spg.SpengerShop.Application.Products
         //public IProductRepository Repository { get { return _repository; } set { _repository = value; } }
 
 
-        public IQueryable<Product> GetAll(string filter)
+        public IQueryable<Product> GetAll()
         {
             IQueryable<Product> products = _repository.GetAll();
-            products = products.Where(p => p.Name.Contains(filter));
             return products;
+        }
+
+        // Kommt später dran
+        public void Create(Product newProduct)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(int id, Product product)
+        {
+            throw new NotImplementedException();
         }
     }
 }

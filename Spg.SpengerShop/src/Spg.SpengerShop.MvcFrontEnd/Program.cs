@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using Spg.SpengerShop.Application.Products;
 using Spg.SpengerShop.Repository.Products;
 using Spg.SpengerShop.Core;
+using Spg.SpengerShop.Domain.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +13,8 @@ builder.Services.AddControllersWithViews();
 string? connectionString = builder.Configuration.GetConnectionString("MyConnection");
 
 // Add Services to IServiceCollection
-builder.Services.AddTransient<ProductService>();
+builder.Services.AddTransient<IReadOnlyProductService, ProductService>();
+builder.Services.AddTransient<IAddableProductService, ProductService>();
 builder.Services.AddTransient<IProductRepository, TestProductRepository>();
 
 builder.Services.ConfigureSqLite(connectionString);

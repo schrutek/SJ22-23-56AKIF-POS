@@ -57,7 +57,7 @@ if (true)
 // Do Something
 
 
-var fionalResult = result101.Select(p => new { p.Name, Ean = p.Ean, SecondName = r.Name });
+var fionalResult = result101.Select(p => new { p.Name, Ean = p.Ean, SecondName = p.Name });
 
 var result07 = db.ShoppingCarts.Where(s => s.ShoppingCartItems.Any(i => i.ProductNavigation.Name == "Awesome Cotton Shoes"));
 
