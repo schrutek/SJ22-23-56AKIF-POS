@@ -37,7 +37,7 @@ namespace Spg.SpengerShop.Application.Products
         // Kommt später dran
         public void Create(Product newProduct)
         {
-            throw new NotImplementedException();
+            _repository.Create(newProduct);
         }
 
         public void Update(int id, Product product)

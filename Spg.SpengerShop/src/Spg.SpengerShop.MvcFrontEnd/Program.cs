@@ -1,9 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Spg.SpengerShop.Application.Products;
-using Spg.SpengerShop.Repository.Products;
 using Spg.SpengerShop.Core;
 using Spg.SpengerShop.Domain.Interfaces;
+using Spg.SpengerShop.Repository.Products;
 
 var builder = WebApplication.CreateBuilder(args);
 

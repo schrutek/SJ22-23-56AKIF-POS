@@ -9,13 +9,18 @@ using System.Threading.Tasks;
 
 namespace Spg.SpengerShop.Repository.Products
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepository : IProductRepository, IReadOnlyProductRepository
     {
         private readonly SpengerShopContext _db;
 
         public ProductRepository(SpengerShopContext db)
         {
             _db = db;
+        }
+
+        public void Create(Product newProduct)
+        {
+            //_db.Products.Update(newProduct);
         }
 
         public IQueryable<Product> GetAll()

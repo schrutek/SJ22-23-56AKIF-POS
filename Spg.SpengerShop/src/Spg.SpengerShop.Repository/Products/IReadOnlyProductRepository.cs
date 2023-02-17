@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Spg.SpengerShop.Repository.Products
 {
-    public interface IProductRepository
+    public interface IReadOnlyProductRepository
     {
-        void Create(Product newProduct);
+        IQueryable<Product> GetAll();
     }
 }
