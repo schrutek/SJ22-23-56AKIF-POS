@@ -3,7 +3,7 @@
     public class BowlingCalculator
     {
         private int _sum = 0;
-        Stack<int> _frame = new Stack<int>();
+        private Stack<int> _frame = new Stack<int>();
 
         public int Roll(int thrownPins)
         {
@@ -12,14 +12,16 @@
                 throw new BowlingServiceException("Es sind aber nur 0-10 Kegel (Schlingel)!");
             }
 
+            _sum = _sum + thrownPins;
+
             // Anzahl der umgeworfenen Pins in Summe speichern
-            GameState.SumThronPins += thrownPins;
 
             // Wurfnummer inkrementieren
-            GameState.RollNumber++;
 
             // Stack verwenden _frame
             // _sum reinschreiben
+
+            return -1;
 
         }
     }
