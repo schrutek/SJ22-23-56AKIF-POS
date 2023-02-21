@@ -18,6 +18,11 @@ namespace Spg.SpengerShop.Repository.Products
             _db = db;
         }
 
+        public void Create(Product newProduct)
+        {
+            throw new NotImplementedException();
+        }
+
         public IQueryable<Product> GetAll()
         {
             return _db.Products;

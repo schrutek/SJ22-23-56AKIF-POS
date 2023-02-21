@@ -1,12 +1,12 @@
 using Microsoft.EntityFrameworkCore;
-using Spg.SpengerShop.Application.Products;
+using Spg.SpengerShop.Domain.Exceptions;
 using Spg.SpengerShop.Domain.Model;
 using Spg.SpengerShop.Infrastructure;
 using Spg.SpengerShop.Repository.Products;
 
-namespace Spg.SpengerShop.Application.Test
+namespace Spg.SpengerShop.RepositoryTest
 {
-    public class ProductServiceTest
+    public class ProductRepositoryTest
     {
         private SpengerShopContext GenerateDb()
         {
@@ -18,28 +18,36 @@ namespace Spg.SpengerShop.Application.Test
             db.Database.EnsureCreated();
             return db;
         }
-        private ProductService InitUnitToTest(SpengerShopContext db)
-        {
-            return new ProductService(new ProductRepository(db), new ProductRepository(db));
-        }
 
         [Fact]
-        public void CreateProduct_Success_Test()
+        public void Create_Success_Test()
         {
-            // Arrange
+            // Arrange (Enty, DB)
             SpengerShopContext db = GenerateDb();
-            ProductService unitToTest = InitUnitToTest(db);
 
             Shop shop = new Shop("GMBH", "Test Shop", "Test Location", "IDontKnow", "Bs", new Address("Spengergasse", "20", "1050", "Wien"), new Guid("0c03ceb5-e2a2-4faf-b273-63839505f573"));
             Category category = new Category("Test Category", shop);
             Product entity = new Product("Test Product", 10, "1234567891234", "MyProduct Material", new DateTime(2023, 03, 17), category);
 
             // Act
-            unitToTest.Create(entity);
+            new ProductRepository(db).Create(entity);
 
             // Assert
-            Assert.Equal(1, db.Products.ToList().Count());
-            Assert.Equal("Test Product", db.Products.First().Name);
+            Assert.Single(db.Products.ToList());
+        }
+
+        [Fact]
+        public void Create_ProductRepositoryCreateException_Test()
+        {
+            // Arrange (Enty, DB)
+            SpengerShopContext db = GenerateDb();
+
+            Shop shop = new Shop("GMBH", "Test Shop", "Test Location", "IDontKnow", "Bs", new Address("Spengergasse", "20", "1050", "Wien"), new Guid("0c03ceb5-e2a2-4faf-b273-63839505f573"));
+            Category category = new Category("Test Category", shop);
+            Product entity = new Product("Test Product", 10, "1234567891234", "MyProduct Material", new DateTime(2023, 03, 17), category);
+
+            // Assert
+            Assert.Throws<ProductRepositoryCreateException>(() => new ProductRepository(db).Create(null));
         }
     }
 }

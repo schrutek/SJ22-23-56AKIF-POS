@@ -12,10 +12,12 @@ namespace Spg.SpengerShop.Application.Products
     public class ProductService : IReadOnlyProductService, IAddableProductService, IUpdateableProductService
     {
         private readonly IProductRepository _repository;
+        private readonly IReadOnlyProductRepository _readOnlyProductRepository;
 
-        public ProductService(IProductRepository repository)
+        public ProductService(IProductRepository repository, IReadOnlyProductRepository readOnlyProductRepository)
         {
             _repository = repository;
+            _readOnlyProductRepository = readOnlyProductRepository;
         }
 
         // Method Injection
@@ -30,7 +32,7 @@ namespace Spg.SpengerShop.Application.Products
 
         public IQueryable<Product> GetAll()
         {
-            IQueryable<Product> products = _repository.GetAll();
+            IQueryable<Product> products = _readOnlyProductRepository.GetAll();
             return products;
         }
 

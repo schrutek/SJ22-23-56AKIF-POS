@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Spg.SpengerShop.Domain.Exceptions;
 using Spg.SpengerShop.Domain.Model;
 using Spg.SpengerShop.Infrastructure;
 using System;
@@ -20,7 +21,19 @@ namespace Spg.SpengerShop.Repository.Products
 
         public void Create(Product newProduct)
         {
-            //_db.Products.Update(newProduct);
+            try
+            {
+                _db.Products.Add(newProduct);
+                _db.SaveChanges(); // => Insert
+            }
+            catch (NullReferenceException ex)
+            {
+                throw new ProductRepositoryCreateException("Create nicht möglich!", ex);
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new ProductRepositoryCreateException("Create nicht möglich!", ex);
+            }
         }
 
         public IQueryable<Product> GetAll()
