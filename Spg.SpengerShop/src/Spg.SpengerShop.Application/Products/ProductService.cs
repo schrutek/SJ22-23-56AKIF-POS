@@ -1,6 +1,6 @@
 ﻿using Spg.SpengerShop.Domain.Interfaces;
 using Spg.SpengerShop.Domain.Model;
-using Spg.SpengerShop.Repository.Products;
+using Spg.SpengerShop.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,24 +11,14 @@ namespace Spg.SpengerShop.Application.Products
 {
     public class ProductService : IReadOnlyProductService, IAddableProductService, IUpdateableProductService
     {
-        private readonly IProductRepository _repository;
-        private readonly IReadOnlyProductRepository _readOnlyProductRepository;
+        private readonly IRepositoryBase<Product> _repository;
+        private readonly IReadOnlyRepositoryBase<Product> _readOnlyProductRepository;
 
-        public ProductService(IProductRepository repository, IReadOnlyProductRepository readOnlyProductRepository)
+        public ProductService(IRepositoryBase<Product> repository, IReadOnlyRepositoryBase<Product> readOnlyProductRepository)
         {
             _repository = repository;
             _readOnlyProductRepository = readOnlyProductRepository;
         }
-
-        // Method Injection
-        //public void SetProductRepository(IProductRepository repository)
-        //{
-        //    _repository = repository;
-        //}
-
-        //// Property Injection
-        //public IProductRepository Repository { get { return _repository; } set { _repository = value; } }
-
 
         public IQueryable<Product> GetAll()
         {
@@ -39,6 +29,19 @@ namespace Spg.SpengerShop.Application.Products
         // Kommt später dran
         public void Create(Product newProduct)
         {
+            // * Es muss unique sein
+            // * ExpiaryDate muss in der Zukunft liegen
+
+            // * Es muss eine gültige Kategorie haben
+            // * Das Auslieferungsdatum darf nicht an einem Samstag/Sonntag sein
+            // * Stock darf nicht kleiner 1 sein.
+            // * Das Ablaufdatum darf nicht in den nächsten 2 Wochen sein
+            // * Das Ablaufdatum darf nicht in der Vergangenheit sein
+            // * Der Preis muss > 1 sein
+            // * Produkt darf nur in einer Kategorie vorkommen
+
+
+
             _repository.Create(newProduct);
         }
 

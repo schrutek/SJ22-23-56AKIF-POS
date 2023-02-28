@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Spg.SpengerShop.Domain.Exceptions;
+using Spg.SpengerShop.Domain.Interfaces;
 using Spg.SpengerShop.Domain.Model;
 using Spg.SpengerShop.Infrastructure;
 using System;
@@ -8,27 +9,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Spg.SpengerShop.Repository.Products
+namespace Spg.SpengerShop.Repository
 {
-    public class ProductRepository : IProductRepository, IReadOnlyProductRepository
+    public class RepositoryBase<TEntity> : IRepositoryBase<TEntity>, IReadOnlyRepositoryBase<TEntity>
+        where TEntity : class
     {
         private readonly SpengerShopContext _db;
 
-        public ProductRepository(SpengerShopContext db)
+        public RepositoryBase(SpengerShopContext db)
         {
             _db = db;
         }
 
-        public void Create(Product newProduct)
+        public void Create(TEntity newEntity)
         {
             try
             {
-                _db.Products.Add(newProduct);
+                DbSet<TEntity> dbSet = _db.Set<TEntity>();
+                dbSet.Add(newEntity);
                 _db.SaveChanges(); // => Insert
-            }
-            catch (NullReferenceException ex)
-            {
-                throw new ProductRepositoryCreateException("Create nicht möglich!", ex);
             }
             catch (DbUpdateException ex)
             {
@@ -36,9 +35,9 @@ namespace Spg.SpengerShop.Repository.Products
             }
         }
 
-        public IQueryable<Product> GetAll()
+        public IQueryable<TEntity> GetAll()
         {
-            return _db.Products;
+            return _db.Set<TEntity>();
         }
     }
 }

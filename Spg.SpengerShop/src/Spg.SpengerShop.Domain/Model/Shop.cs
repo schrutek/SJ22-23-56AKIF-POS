@@ -30,6 +30,6 @@ namespace Spg.SpengerShop.Domain.Model
 
 
         protected List<Category> _categories = new();
-        public virtual IReadOnlyList<Category> Categories => _categories;
+        public virtual IReadOnlyList<Category> Categories => _categories; // 1..n
     }
 }

@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using Spg.SpengerShop.Application.Products;
 using Spg.SpengerShop.Core;
 using Spg.SpengerShop.Domain.Interfaces;
+using Spg.SpengerShop.Domain.Model;
+using Spg.SpengerShop.Repository;
 using Spg.SpengerShop.Repository.Products;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +16,7 @@ string? connectionString = builder.Configuration.GetConnectionString("MyConnecti
 // Add Services to IServiceCollection
 builder.Services.AddTransient<IReadOnlyProductService, ProductService>();
 builder.Services.AddTransient<IAddableProductService, ProductService>();
-builder.Services.AddTransient<IProductRepository, TestProductRepository>();
+builder.Services.AddTransient<IRepositoryBase<Product>, TestProductRepository>();
 
 builder.Services.ConfigureSqLite(connectionString);
 

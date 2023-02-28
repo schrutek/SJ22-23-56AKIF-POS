@@ -1,53 +1,58 @@
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Spg.SpengerShop.Domain.Exceptions;
 using Spg.SpengerShop.Domain.Model;
 using Spg.SpengerShop.Infrastructure;
-using Spg.SpengerShop.Repository.Products;
+using Spg.SpengerShop.Repository;
+using Spg.SpengerShop.RepositoryTest.Helpers;
 
 namespace Spg.SpengerShop.RepositoryTest
 {
     public class ProductRepositoryTest
     {
-        private SpengerShopContext GenerateDb()
+        private DbContextOptions GenerateDbOptions()
         {
-            DbContextOptionsBuilder options = new DbContextOptionsBuilder();
-            options.UseSqlite("Data Source=./SpengerShop_Test.db");
+            SqliteConnection connection = new SqliteConnection("Data Source = :memory:");
+            connection.Open();
 
-            SpengerShopContext db = new SpengerShopContext(options.Options);
-            db.Database.EnsureDeleted();
-            db.Database.EnsureCreated();
-            return db;
+            DbContextOptionsBuilder options = new DbContextOptionsBuilder();
+            options.UseSqlite(connection);
+            return options.Options;
         }
 
         [Fact]
         public void Create_Success_Test()
         {
             // Arrange (Enty, DB)
-            SpengerShopContext db = GenerateDb();
+            using (SpengerShopContext db = new SpengerShopContext(GenerateDbOptions()))
+            {
+                DatabaseUtilities.InitializeDatabase(db);
 
-            Shop shop = new Shop("GMBH", "Test Shop", "Test Location", "IDontKnow", "Bs", new Address("Spengergasse", "20", "1050", "Wien"), new Guid("0c03ceb5-e2a2-4faf-b273-63839505f573"));
-            Category category = new Category("Test Category", shop);
-            Product entity = new Product("Test Product", 10, "1234567891234", "MyProduct Material", new DateTime(2023, 03, 17), category);
+                Product entity = new Product("Test Product", 10, "1234567891234", "MyProduct Material", new DateTime(2023, 03, 17), db.Categories.Single(c => c.Id == 1));
 
-            // Act
-            new ProductRepository(db).Create(entity);
+                // Act
+                new RepositoryBase<Product>(db).Create(entity);
 
-            // Assert
-            Assert.Single(db.Products.ToList());
+                // Assert
+                Assert.Single(db.Products.ToList());
+            }
         }
 
         [Fact]
         public void Create_ProductRepositoryCreateException_Test()
         {
             // Arrange (Enty, DB)
-            SpengerShopContext db = GenerateDb();
+            using (SpengerShopContext db = new SpengerShopContext(GenerateDbOptions()))
+            {
 
-            Shop shop = new Shop("GMBH", "Test Shop", "Test Location", "IDontKnow", "Bs", new Address("Spengergasse", "20", "1050", "Wien"), new Guid("0c03ceb5-e2a2-4faf-b273-63839505f573"));
-            Category category = new Category("Test Category", shop);
-            Product entity = new Product("Test Product", 10, "1234567891234", "MyProduct Material", new DateTime(2023, 03, 17), category);
+                DatabaseUtilities.InitializeDatabase(db);
 
-            // Assert
-            Assert.Throws<ProductRepositoryCreateException>(() => new ProductRepository(db).Create(null));
+                Category newCategory = new Category("", null);
+                Product entity = new Product("Test Product", 10, "1234567891234", "MyProduct Material", new DateTime(2023, 03, 17), newCategory);
+
+                // Assert
+                Assert.Throws<ProductRepositoryCreateException>(() => new RepositoryBase<Product>(db).Create(entity));
+            }
         }
     }
 }

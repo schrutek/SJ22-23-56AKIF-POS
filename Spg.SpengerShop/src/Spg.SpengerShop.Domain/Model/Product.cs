@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Spg.SpengerShop.Domain.Interfaces;
 
 namespace Spg.SpengerShop.Domain.Model
 {
-    public class Product
+    public class Product : IEntity
     {
         public string Name { get; private set; } = string.Empty;
-        public int Tax { get; set; }
+        public int Tax { get; set; } // Steuerklasse
         public string Ean { get; set; } = string.Empty;
         public string? Material { get; set; } = string.Empty;
         public DateTime? ExpiryDate { get; set; }

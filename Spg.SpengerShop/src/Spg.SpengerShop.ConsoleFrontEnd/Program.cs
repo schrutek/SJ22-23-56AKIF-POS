@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Spg.SpengerShop.Application.Products;
 using Spg.SpengerShop.Domain.Model;
 using Spg.SpengerShop.Infrastructure;
-using Spg.SpengerShop.Repository.Products;
+using Spg.SpengerShop.Repository;
 
 DbContextOptionsBuilder optionsBuilder = new DbContextOptionsBuilder();
 optionsBuilder.UseSqlite("Data Source=./../../../SpengerShop.db");
@@ -22,7 +22,7 @@ db2.Database.EnsureDeleted();
 db2.Database.EnsureCreated();
 db2.Seed(); 
 
-IQueryable<Product> result = new ProductService(new TestProductRepository(db)).GetAll();
+IQueryable<Product> result = new ProductService(new RepositoryBase<Product>(db), new RepositoryBase<Product>(db)).GetAll();
 foreach (Product p in result.ToList())
 {
     Console.WriteLine($"{p.Name} - {p.Ean} - {p.Material}");

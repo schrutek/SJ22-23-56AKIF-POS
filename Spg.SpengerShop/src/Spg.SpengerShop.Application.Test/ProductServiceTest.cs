@@ -1,45 +1,53 @@
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Spg.SpengerShop.Application.Products;
+using Spg.SpengerShop.Application.Test.Helpers;
 using Spg.SpengerShop.Domain.Model;
 using Spg.SpengerShop.Infrastructure;
-using Spg.SpengerShop.Repository.Products;
+using Spg.SpengerShop.Repository;
 
 namespace Spg.SpengerShop.Application.Test
 {
     public class ProductServiceTest
     {
-        private SpengerShopContext GenerateDb()
-        {
-            DbContextOptionsBuilder options = new DbContextOptionsBuilder();
-            options.UseSqlite("Data Source=./SpengerShop_Test.db");
-
-            SpengerShopContext db = new SpengerShopContext(options.Options);
-            db.Database.EnsureDeleted();
-            db.Database.EnsureCreated();
-            return db;
-        }
         private ProductService InitUnitToTest(SpengerShopContext db)
         {
-            return new ProductService(new ProductRepository(db), new ProductRepository(db));
+            return new ProductService(
+                new RepositoryBase<Product>(db), 
+                new RepositoryBase<Product>(db));
+        }
+
+        private DbContextOptions GenerateDbOptions()
+        {
+            SqliteConnection connection = new SqliteConnection("Data Source = :memory:");
+            connection.Open();
+
+            DbContextOptionsBuilder options = new DbContextOptionsBuilder();
+            options.UseSqlite(connection);
+            return options.Options;
         }
 
         [Fact]
         public void CreateProduct_Success_Test()
         {
             // Arrange
-            SpengerShopContext db = GenerateDb();
-            ProductService unitToTest = InitUnitToTest(db);
+            using (SpengerShopContext db = new SpengerShopContext(GenerateDbOptions()))
+            {
+                ProductService unitToTest = InitUnitToTest(db);
 
-            Shop shop = new Shop("GMBH", "Test Shop", "Test Location", "IDontKnow", "Bs", new Address("Spengergasse", "20", "1050", "Wien"), new Guid("0c03ceb5-e2a2-4faf-b273-63839505f573"));
-            Category category = new Category("Test Category", shop);
-            Product entity = new Product("Test Product", 10, "1234567891234", "MyProduct Material", new DateTime(2023, 03, 17), category);
+                DatabaseUtilities.InitializeDatabase(db);
 
-            // Act
-            unitToTest.Create(entity);
+                Product entity = new Product("Test Product 1", 10, "1234567891234", "MyProduct Material 1",
+                    new DateTime(2023, 03, 17), db.Categories.Single(s => s.Id == 1));
 
-            // Assert
-            Assert.Equal(1, db.Products.ToList().Count());
-            Assert.Equal("Test Product", db.Products.First().Name);
+                // Act
+                unitToTest.Create(entity);
+
+                // Assert
+                Assert.Equal(1, db.Products.ToList().Count());
+                Assert.Equal("Test Product 1", db.Products.First().Name);
+            }
         }
     }
 }

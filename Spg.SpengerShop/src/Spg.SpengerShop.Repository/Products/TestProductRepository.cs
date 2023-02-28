@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Spg.SpengerShop.Repository.Products
 {
-    public class TestProductRepository : IProductRepository
+    public class TestProductRepository : IRepositoryBase<Product>
     {
         private readonly SpengerShopContext _db;
 
