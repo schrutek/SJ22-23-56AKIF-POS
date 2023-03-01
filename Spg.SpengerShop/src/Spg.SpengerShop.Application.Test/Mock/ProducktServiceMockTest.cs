@@ -1,25 +1,31 @@
-using Microsoft.Data.Sqlite;
+﻿using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+using Moq;
 using Spg.SpengerShop.Application.Helpers;
 using Spg.SpengerShop.Application.Products;
 using Spg.SpengerShop.Application.Test.Helpers;
 using Spg.SpengerShop.Domain.Exceptions;
+using Spg.SpengerShop.Domain.Interfaces;
 using Spg.SpengerShop.Domain.Model;
 using Spg.SpengerShop.Infrastructure;
-using Spg.SpengerShop.Repository;
 using Spg.SpengerShop.Repository.Products;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Spg.SpengerShop.Application.Test
+namespace Spg.SpengerShop.Application.Test.Mock
 {
-    public class ProductServiceTest
+    public class ProducktServiceMockTest
     {
-        private ProductService InitUnitToTest(SpengerShopContext db)
+        private readonly Mock<IDateTimeService> _dateTimeService = new Mock<IDateTimeService>();
+
+        private readonly IAddableProductService _unitToTest = null;
+
+        public ProducktServiceMockTest()
         {
-            return new ProductService(
-                new ProductRepository(db), 
-                new ProductRepository(db),
-                new DateTimeServiceMock());
+            _unitToTest = new ProductService(null, null, _dateTimeService.Object);
         }
 
         private DbContextOptions GenerateDbOptions()
@@ -38,7 +44,7 @@ namespace Spg.SpengerShop.Application.Test
             // Arrange
             using (SpengerShopContext db = new SpengerShopContext(GenerateDbOptions()))
             {
-                ProductService unitToTest = InitUnitToTest(db);
+                _dateTimeService.Setup(d => d.Now).Returns(new DateTime(2023, 02, 28));
 
                 DatabaseUtilities.InitializeDatabase(db);
 
@@ -46,7 +52,7 @@ namespace Spg.SpengerShop.Application.Test
                     new DateTime(2023, 03, 17), db.Categories.Single(s => s.Id == 1));
 
                 // Act
-                unitToTest.Create(entity);
+                _unitToTest.Create(entity);
 
                 // Assert
                 Assert.Equal(2, db.Products.ToList().Count());
@@ -60,7 +66,7 @@ namespace Spg.SpengerShop.Application.Test
             // Arrange
             using (SpengerShopContext db = new SpengerShopContext(GenerateDbOptions()))
             {
-                ProductService unitToTest = InitUnitToTest(db);
+                _dateTimeService.Setup(d => d.Now).Returns(new DateTime(2023, 02, 28));
 
                 DatabaseUtilities.InitializeDatabase(db);
 
@@ -68,7 +74,7 @@ namespace Spg.SpengerShop.Application.Test
                     new DateTime(2023, 03, 17), db.Categories.Single(s => s.Id == 1));
 
                 // Act + Assert
-                Assert.Throws<CreateProductServiceException>(() => unitToTest.Create(entity));
+                Assert.Throws<CreateProductServiceException>(() => _unitToTest.Create(entity));
             }
         }
 
@@ -78,7 +84,7 @@ namespace Spg.SpengerShop.Application.Test
             // Arrange
             using (SpengerShopContext db = new SpengerShopContext(GenerateDbOptions()))
             {
-                ProductService unitToTest = InitUnitToTest(db);
+                _dateTimeService.Setup(d => d.Now).Returns(new DateTime(2023, 02, 28));
 
                 DatabaseUtilities.InitializeDatabase(db);
 
@@ -86,7 +92,7 @@ namespace Spg.SpengerShop.Application.Test
                     new DateTime(2023, 03, 12), db.Categories.Single(s => s.Id == 1));
 
                 // Act + Assert
-                Assert.Throws<CreateProductServiceException>(() => unitToTest.Create(entity));
+                Assert.Throws<CreateProductServiceException>(() => _unitToTest.Create(entity));
             }
         }
     }

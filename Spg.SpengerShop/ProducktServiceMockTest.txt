@@ -1,0 +1,29 @@
+        private readonly Mock<IDateTimeService> _dateTimeService = new Mock<IDateTimeService>();
+        private readonly Mock<IProductRepository> _productRepository = new Mock<IProductRepository>();
+        private readonly Mock<IReadOnlyProductRepository> _readOnlyProductRepository = new Mock<IReadOnlyProductRepository>();
+
+        private readonly IAddableProductService _unitToTest = null!;
+
+        public ProducktServiceMockTest()
+        {
+            _unitToTest = new ProductService(_productRepository.Object, _readOnlyProductRepository.Object, _dateTimeService.Object);
+        }
+
+
+        [Fact]
+        public void CreateProduct_Success_Test()
+        {
+            // Arrange
+            _dateTimeService.Setup(d => d.Now).Returns(new DateTime(2023, 02, 28));
+            _readOnlyProductRepository.Setup(r => r.GetByName("Test Product 1")).Returns(new Product("Test Product 1", 10, "1234567891234", "MyProduct Material 1",
+                new DateTime(2023, 03, 17), MockUtilities.GetSeedingCategory(MockUtilities.GetSeedingShop())));
+
+            Product entity = new Product("Test Product 2", 10, "1234567891234", "MyProduct Material 1",
+                new DateTime(2023, 03, 17), MockUtilities.GetSeedingCategory(MockUtilities.GetSeedingShop()));
+
+            // Act
+            _unitToTest.Create(entity);
+
+            // Assert
+            _productRepository.Verify(r => r.Create(It.IsAny<Product>()), Times.Once);
+        }

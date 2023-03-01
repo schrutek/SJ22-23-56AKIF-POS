@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Spg.SpengerShop.Domain.Exceptions;
 using Spg.SpengerShop.Domain.Interfaces;
 using Spg.SpengerShop.Domain.Model;
@@ -7,27 +6,25 @@ using Spg.SpengerShop.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Spg.SpengerShop.Repository
+namespace Spg.SpengerShop.Repository.Products
 {
-    public class RepositoryBase<TEntity> : IRepositoryBase<TEntity>, IReadOnlyRepositoryBase<TEntity>
-        where TEntity : EntityBase
+    public class ProductRepository : IProductRepository, IReadOnlyProductRepository
     {
         private readonly SpengerShopContext _db;
 
-        public RepositoryBase(SpengerShopContext db)
+        public ProductRepository(SpengerShopContext db)
         {
             _db = db;
         }
 
-        public void Create(TEntity newEntity)
+        public void Create(Product newEntity)
         {
             try
             {
-                DbSet<TEntity> dbSet = _db.Set<TEntity>();
+                DbSet<Product> dbSet = _db.Set<Product>();
                 dbSet.Add(newEntity);
                 _db.SaveChanges(); // => Insert
             }
@@ -37,14 +34,14 @@ namespace Spg.SpengerShop.Repository
             }
         }
 
-        public TEntity GetByName(int id)
+        public Product? GetByName(string name)
         {
-            return _db.Set<TEntity>().SingleOrDefault(e => e.Id == id);
+            return _db.Products.SingleOrDefault(e => e.Name == name);
         }
 
-        public IQueryable<TEntity> GetAll()
+        public IQueryable<Product> GetAll()
         {
-            return _db.Set<TEntity>();
+            return _db.Set<Product>();
         }
     }
 }

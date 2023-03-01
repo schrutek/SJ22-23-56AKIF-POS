@@ -22,7 +22,8 @@ namespace Spg.SpengerShop.Application.Test.Helpers
             db.SaveChanges();
 
             // Seed Products
-            // db.SaveChanges();
+            db.Products.AddRange(GetSeedingProducts(db.Categories.Single(c => c.Id == 1)));
+            db.SaveChanges();
             
             // Seed ...
             // db.SaveChanges();
@@ -46,10 +47,13 @@ namespace Spg.SpengerShop.Application.Test.Helpers
             };
         }
 
-        //private static List<Product> GetSeedingProducts(Category category)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        private static List<Product> GetSeedingProducts(Category category)
+        {
+            return new List<Product>() {
+                new Product("Test Product 99", 10, "1234567891234", "MyProduct Material 1",
+                                new DateTime(2023, 03, 17), category),
+            };
+        }
 
         // ...
     }

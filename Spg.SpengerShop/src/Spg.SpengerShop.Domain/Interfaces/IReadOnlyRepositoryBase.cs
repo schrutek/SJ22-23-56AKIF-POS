@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Spg.SpengerShop.Repository
+namespace Spg.SpengerShop.Domain.Interfaces
 {
-    public interface IRepositoryBase<TEntity>
-        where TEntity : class
+    public interface IReadOnlyRepositoryBase<TEntity>
+        where TEntity : EntityBase
     {
-        void Create(TEntity newProduct);
+        IQueryable<TEntity> GetAll();
     }
 }

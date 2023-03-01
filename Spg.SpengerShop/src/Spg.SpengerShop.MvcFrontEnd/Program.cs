@@ -16,7 +16,8 @@ string? connectionString = builder.Configuration.GetConnectionString("MyConnecti
 // Add Services to IServiceCollection
 builder.Services.AddTransient<IReadOnlyProductService, ProductService>();
 builder.Services.AddTransient<IAddableProductService, ProductService>();
-builder.Services.AddTransient<IRepositoryBase<Product>, TestProductRepository>();
+builder.Services.AddTransient<IProductRepository, ProductRepository>();
+builder.Services.AddTransient<IReadOnlyProductRepository, ProductRepository>();
 
 builder.Services.ConfigureSqLite(connectionString);
 
