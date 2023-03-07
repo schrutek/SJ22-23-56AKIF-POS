@@ -9,8 +9,16 @@ using System.Threading.Tasks;
 namespace Spg.SpengerShop.Domain.Interfaces
 {
     public interface IReadOnlyRepositoryBase<TEntity>
-        where TEntity : EntityBase
+        where TEntity : class
     {
+        TEntity? GetByPK<TKey>(TKey pk);
+
+        T? GetByGuid<T>(Guid guid) where T : class, IFindableByGuid;
+
         IQueryable<TEntity> GetAll();
+
+        // GetFiltered
+        // GetByGuid
+        // GetBy...
     }
 }

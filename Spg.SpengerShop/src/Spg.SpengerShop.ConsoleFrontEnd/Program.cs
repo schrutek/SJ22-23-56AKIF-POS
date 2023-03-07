@@ -24,7 +24,11 @@ db2.Database.EnsureDeleted();
 db2.Database.EnsureCreated();
 db2.Seed(); 
 
-IQueryable<Product> result = new ProductService(new ProductRepository(db), new ProductRepository(db), new DateTimeService()).GetAll();
+IQueryable<Product> result = new ProductService(
+    new ProductRepository(db), 
+    new RepositoryBase<Product>(db),
+    new RepositoryBase<Category>(db),
+    new DateTimeService()).GetAll();
 foreach (Product p in result.ToList())
 {
     Console.WriteLine($"{p.Name} - {p.Ean} - {p.Material}");

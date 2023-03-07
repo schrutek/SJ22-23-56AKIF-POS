@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace Spg.SpengerShop.Domain.Interfaces
 {
-    public interface IEntity
-    { }
+    public interface IFindableByGuid
+    {
+        public Guid Guid { get; }
+    }
 }

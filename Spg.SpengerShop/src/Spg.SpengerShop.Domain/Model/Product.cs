@@ -7,7 +7,7 @@ using Spg.SpengerShop.Domain.Interfaces;
 
 namespace Spg.SpengerShop.Domain.Model
 {
-    public class Product : IEntity
+    public class Product
     {
         public string Name { get; private set; } = string.Empty;
         public int Tax { get; set; } // Steuerklasse

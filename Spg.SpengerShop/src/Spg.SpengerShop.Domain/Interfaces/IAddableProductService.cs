@@ -1,4 +1,5 @@
-﻿using Spg.SpengerShop.Domain.Model;
+﻿using Spg.SpengerShop.Domain.Dtos;
+using Spg.SpengerShop.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace Spg.SpengerShop.Domain.Interfaces
 {
     public interface IAddableProductService
     {
-        void Create(Product newProduct);
+        void Create(NewProductDto newProductDto);
     }
 }

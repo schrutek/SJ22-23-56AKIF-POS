@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Spg.SpengerShop.Domain.Dtos;
 using Spg.SpengerShop.Domain.Interfaces;
 using Spg.SpengerShop.Domain.Model;
 
@@ -21,7 +22,7 @@ namespace Spg.SpengerShop.MvcFrontEnd.Controllers
             return View(model);
         }
 
-        public IActionResult Create(Product newProduct)
+        public IActionResult Create(NewProductDto newProduct)
         {
             _addableProductService.Create(newProduct);
             return View();

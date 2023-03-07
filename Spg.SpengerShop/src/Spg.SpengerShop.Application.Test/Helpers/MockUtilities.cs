@@ -17,7 +17,7 @@ namespace Spg.SpengerShop.Application.Test.Helpers
 
         public static Category GetSeedingCategory(Shop shop)
         {
-            return new Category("DVD", shop);
+            return new Category("DVD", new Guid("d2616f6e-7424-4b9f-bf81-6aad88183f41"), shop);
         }
 
         public static Product GetSeedingProduct(Category category)
@@ -25,5 +25,7 @@ namespace Spg.SpengerShop.Application.Test.Helpers
             return new Product("Test Product 99", 10, "1234567891234", "MyProduct Material 1",
                                 new DateTime(2023, 03, 17), category);
         }
+
+        // ...
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using Spg.SpengerShop.Application.Helpers;
 using Spg.SpengerShop.Application.Products;
 using Spg.SpengerShop.Application.Test.Helpers;
+using Spg.SpengerShop.Domain.Dtos;
 using Spg.SpengerShop.Domain.Exceptions;
 using Spg.SpengerShop.Domain.Model;
 using Spg.SpengerShop.Infrastructure;
@@ -18,7 +19,8 @@ namespace Spg.SpengerShop.Application.Test
         {
             return new ProductService(
                 new ProductRepository(db), 
-                new ProductRepository(db),
+                new RepositoryBase<Product>(db),
+                new RepositoryBase<Category>(db),
                 new DateTimeServiceMock());
         }
 
@@ -42,15 +44,21 @@ namespace Spg.SpengerShop.Application.Test
 
                 DatabaseUtilities.InitializeDatabase(db);
 
-                Product entity = new Product("Test Product 1", 10, "1234567891234", "MyProduct Material 1",
-                    new DateTime(2023, 03, 17), db.Categories.Single(s => s.Id == 1));
+                NewProductDto entity = new NewProductDto() 
+                { 
+                    Name = "Test Product 1", 
+                    Tax = 10, Ean = "1234567891234", 
+                    Material = "MyProduct Material 1",
+                    ExpiryDate = new DateTime(2023, 03, 17),
+                    CategoryId = new Guid("d2616f6e-7424-4b9f-bf81-6aad88183f41")
+                };
 
                 // Act
                 unitToTest.Create(entity);
 
                 // Assert
                 Assert.Equal(2, db.Products.ToList().Count());
-                //Assert.Equal("Test Product 1", db.Products.OrderBy(p => p.Name).Last().Name);
+                Assert.Equal("Test Product 1", db.Products.ToList().ElementAt(1).Name);
             }
         }
 
@@ -64,8 +72,15 @@ namespace Spg.SpengerShop.Application.Test
 
                 DatabaseUtilities.InitializeDatabase(db);
 
-                Product entity = new Product("Test Product 99", 10, "1234567891234", "MyProduct Material 99",
-                    new DateTime(2023, 03, 17), db.Categories.Single(s => s.Id == 1));
+                NewProductDto entity = new NewProductDto()
+                {
+                    Name = "Test Product 99",
+                    Tax = 10,
+                    Ean = "1234567891234",
+                    Material = "MyProduct Material 1",
+                    ExpiryDate = new DateTime(2023, 03, 17),
+                    CategoryId = new Guid("d2616f6e-7424-4b9f-bf81-6aad88183f41")
+                };
 
                 // Act + Assert
                 Assert.Throws<CreateProductServiceException>(() => unitToTest.Create(entity));
@@ -82,8 +97,15 @@ namespace Spg.SpengerShop.Application.Test
 
                 DatabaseUtilities.InitializeDatabase(db);
 
-                Product entity = new Product("Test Product 100", 10, "1234567891234", "MyProduct Material 99",
-                    new DateTime(2023, 03, 12), db.Categories.Single(s => s.Id == 1));
+                NewProductDto entity = new NewProductDto()
+                {
+                    Name = "Test Product 10",
+                    Tax = 10,
+                    Ean = "1234567891234",
+                    Material = "MyProduct Material 1",
+                    ExpiryDate = new DateTime(2023, 03, 12),
+                    CategoryId = new Guid("d2616f6e-7424-4b9f-bf81-6aad88183f41")
+                };
 
                 // Act + Assert
                 Assert.Throws<CreateProductServiceException>(() => unitToTest.Create(entity));

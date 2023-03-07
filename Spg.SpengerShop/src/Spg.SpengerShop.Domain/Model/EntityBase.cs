@@ -7,7 +7,7 @@ using Spg.SpengerShop.Domain.Interfaces;
 
 namespace Spg.SpengerShop.Domain.Model
 {
-    public class EntityBase : IEntity
+    public class EntityBase
     {
         public int Id { get; private set; } // PK
         public DateTime? LastChangeDate { get; set; }

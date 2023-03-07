@@ -456,3 +456,5 @@ $RECYCLE.BIN/
 # AppSetting.JSON
 appsettings.json
 /Spg.SpengerShop/Spg.SpengerShop.Application/Products/ProductService.cs
+/Spg.SpengerShop/src/Spg.SpengerShop.RestApi/appsettings.json
+/Spg.SpengerShop/src/Spg.SpengerShop.MvcFrontEnd/appsettings.json

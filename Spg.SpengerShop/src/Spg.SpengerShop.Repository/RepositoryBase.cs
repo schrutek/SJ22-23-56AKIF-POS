@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace Spg.SpengerShop.Repository
 {
     public class RepositoryBase<TEntity> : IRepositoryBase<TEntity>, IReadOnlyRepositoryBase<TEntity>
-        where TEntity : EntityBase
+        where TEntity : class
     {
         private readonly SpengerShopContext _db;
 
@@ -37,9 +37,19 @@ namespace Spg.SpengerShop.Repository
             }
         }
 
-        public TEntity GetByName(int id)
+        public TEntity? GetByPK<TKey>(TKey pk)
         {
-            return _db.Set<TEntity>().SingleOrDefault(e => e.Id == id);
+            return _db.Set<TEntity>().Find(pk);
+        }
+
+        public T? GetByGuid<T>(Guid guid) where T : class, IFindableByGuid
+        {
+            return _db.Set<T>().SingleOrDefault(e => e.Guid == guid);
+        }
+
+        public T? GetByEMail<T>(string eMail) where T : class, IFindableByEMail
+        {
+            return _db.Set<T>().SingleOrDefault(e => e.EMail == eMail);
         }
 
         public IQueryable<TEntity> GetAll()

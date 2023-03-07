@@ -1,4 +1,6 @@
-﻿using Spg.SpengerShop.Domain.Model;
+﻿using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
+using Spg.SpengerShop.Domain.Model;
 using Spg.SpengerShop.Infrastructure;
 using System;
 using System.Collections.Generic;
@@ -17,14 +19,17 @@ namespace Spg.SpengerShop.Application.Test.Helpers
             db.Shops.AddRange(GetSeedingShops());
             db.SaveChanges();
 
-            db.Categories.AddRange(GetSeedingCategories(db.Shops.Single(s => s.Id == 1)));
-            db.Categories.AddRange(GetSeedingCategories(db.Shops.Single(s => s.Id == 2)));
+            db.Categories.AddRange(GetSeedingCategories(db.Shops.Single(s => s.Id == 1), 1));
+            db.Categories.AddRange(GetSeedingCategories(db.Shops.Single(s => s.Id == 2), 2));
+            db.SaveChanges();
+
+            db.Customers.AddRange(GetSeedingCustomers());
             db.SaveChanges();
 
             // Seed Products
-            db.Products.AddRange(GetSeedingProducts(db.Categories.Single(c => c.Id == 1)));
+            db.Products.AddRange(GetSeedingProducts(db.Categories.Single(s => s.Id == 1)));
             db.SaveChanges();
-            
+
             // Seed ...
             // db.SaveChanges();
         }
@@ -38,20 +43,38 @@ namespace Spg.SpengerShop.Application.Test.Helpers
             };
         }
 
-        private static List<Category> GetSeedingCategories(Shop shop)
+        private static List<Category> GetSeedingCategories(Shop shop, int index)
         {
-            return new List<Category>()
+            switch (index)
             {
-                new Category("DVD", shop),
-                new Category("Bücher", shop),
+                case 1:
+                    return new List<Category>()
+                    {
+                        new Category("DVD", new Guid("d2616f6e-7424-4b9f-bf81-6aad88183f41"), shop),
+                        new Category("Bücher", new Guid("34993d53-a315-4e4d-aaf8-4406ec5a45b3"), shop),
+                    };
+                default:
+                    return new List<Category>()
+                    {
+                        new Category("Kleidung", new Guid("1d34fd4c-1ebe-43d2-a766-a4d4f644f5a3"), shop),
+                        new Category("Elektronik", new Guid("a39d4a42-d1f4-409e-9b1f-6410ae6a2322"), shop),
+                    };
+            }
+        }
+
+        private static List<Customer> GetSeedingCustomers()
+        {
+            return new List<Customer>()
+            {
+                new Customer(new Guid("6ecfca13-f862-4c74-ac0e-30a2a62dd128"), Genders.Male, 123, "FirstName", "LastName", "test@test.at", new DateTime(1977, 05, 13), new DateTime(2023, 02, 01), new Address("", "", "", ""))
             };
         }
 
         private static List<Product> GetSeedingProducts(Category category)
         {
-            return new List<Product>() {
-                new Product("Test Product 99", 10, "1234567891234", "MyProduct Material 1",
-                                new DateTime(2023, 03, 17), category),
+            return new List<Product>()
+            {
+                new Product("Test Product 99", 20, "1234567890123", "Testmaterial", new DateTime(2023, 03, 17), category)
             };
         }
 
