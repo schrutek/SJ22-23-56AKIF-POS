@@ -16,21 +16,21 @@ namespace Spg.SpengerShop.Application.Products
     {
         private readonly IProductRepository _repository;
         private readonly IReadOnlyRepositoryBase<Product> _readOnlyProductRepository;
-        private readonly IReadOnlyRepositoryBase<Category> _readOnlyCategoyRepository;
+        private readonly IReadOnlyRepositoryBase<Category> _readOnlyCategoryRepository;
         private readonly IDateTimeService _dateTimeService;
 
         public ProductService(IProductRepository repository,
             IReadOnlyRepositoryBase<Product> readOnlyProductRepository,
-            IReadOnlyRepositoryBase<Category> readOnlyCategoyRepository,
+            IReadOnlyRepositoryBase<Category> readOnlyCategoryRepository,
             IDateTimeService dateTimeService)
         {
             _repository = repository;
             _readOnlyProductRepository = readOnlyProductRepository;
-            _readOnlyCategoyRepository = readOnlyCategoyRepository;
+            _readOnlyCategoryRepository = readOnlyCategoryRepository;
             _dateTimeService = dateTimeService;
         }
 
-        public IQueryable<Product> GetAll()
+        public IQueryable<Product> GetAll(string filter, string order)
         {
             IQueryable<Product> products = _readOnlyProductRepository.GetAll();
             return products;
@@ -52,7 +52,17 @@ namespace Spg.SpengerShop.Application.Products
         public void Create(NewProductDto newProductDto)
         {
             // Init
-            Category category = _readOnlyCategoyRepository.GetByGuid<Category>(newProductDto.CategoryId);
+            Category category;
+            try
+            {
+                category = _readOnlyCategoryRepository.GetByGuid<Category>(newProductDto.CategoryId)
+                    ?? throw new CreateProductServiceException("Kategorie wurde nicht gefunden!");
+            }
+            catch (InvalidOperationException ex)
+            {
+                // Logging
+                throw new CreateProductServiceException("Kategorie ist mermals vorhanden!", ex);
+            }
 
             // [ Mapping ]
             Product newProduct = new Product(
@@ -78,9 +88,9 @@ namespace Spg.SpengerShop.Application.Products
             // Act + Save
             _repository.Create(newProduct);
 
-            // [Save]
+            // [Save] wird im Repository aufgerufen
 
-            // [ Mapping ]
+            // [Mapping]
         }
 
         public void Update(int id, Product product)

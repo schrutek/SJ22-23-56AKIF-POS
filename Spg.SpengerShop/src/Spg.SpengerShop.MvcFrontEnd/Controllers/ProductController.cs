@@ -24,6 +24,10 @@ namespace Spg.SpengerShop.MvcFrontEnd.Controllers
 
         public IActionResult Create(NewProductDto newProduct)
         {
+            if (ModelState.IsValid)
+            {
+
+            }
             _addableProductService.Create(newProduct);
             return View();
         }

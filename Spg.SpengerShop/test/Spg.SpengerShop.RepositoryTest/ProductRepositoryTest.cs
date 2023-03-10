@@ -8,16 +8,18 @@ using Spg.SpengerShop.Infrastructure;
 using Spg.SpengerShop.Repository;
 using Spg.SpengerShop.Repository.Products;
 using Spg.SpengerShop.RepositoryTest.Helpers;
+using System;
 
 namespace Spg.SpengerShop.RepositoryTest
 {
     public class ProductRepositoryTest
     {
         private readonly Mock<SpengerShopContext> _db = new Mock<SpengerShopContext>();
+        private readonly IReadOnlyRepositoryBase<Product> _unitToTest;
 
         public ProductRepositoryTest()
         {
-            IRepositoryBase<Product> _product = new RepositoryBase<Product>(_db.Object);
+            IReadOnlyRepositoryBase<Product> _unitToTest = new RepositoryBase<Product>(_db.Object);
         }
 
         [Fact]
@@ -113,20 +115,5 @@ namespace Spg.SpengerShop.RepositoryTest
                 Assert.Equal(new Guid("6ecfca13-f862-4c74-ac0e-30a2a62dd128"), actual.Guid);
             }
         }
-
-        //[Fact]
-        //public void Create_Success_TestMock()
-        //{
-        //    _db.Setup(d=>d.Products.SingleOrDefault(p=>p.Name == "")).Returns("Test Product 1", 10, "1234567891234", "MyProduct Material", new DateTime(2023, 03, 17), null!);
-
-        //    Product entity = new Product("Test Product 1", 10, "1234567891234", "MyProduct Material", new DateTime(2023, 03, 17), db.Categories.Single(c => c.Id == 1));
-
-        //    // Act
-        //    new ProductRepository(db).Create(entity);
-
-        //    // Assert
-        //    Assert.Equal(2, db.Products.Count());
-        //}
-
     }
 }

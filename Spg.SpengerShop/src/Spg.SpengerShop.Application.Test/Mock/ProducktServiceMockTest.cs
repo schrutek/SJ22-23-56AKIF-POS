@@ -36,7 +36,7 @@ namespace Spg.SpengerShop.Application.Test.Mock
         }
 
         [Fact]
-        public void CreateProduct_Success_Test()
+        public void Create_Product_Success_Test()
         {
             // Arrange
             NewProductDto dto = new NewProductDto()
@@ -53,7 +53,8 @@ namespace Spg.SpengerShop.Application.Test.Mock
                 10, 
                 "1234567891234", 
                 "MyProduct Material 1",
-                new DateTime(2023, 03, 17), null!
+                new DateTime(2023, 03, 17),
+                MockUtilities.GetSeedingCategory(MockUtilities.GetSeedingShop())
             );
 
             _dateTimeService.Setup(d => d.Now).Returns(new DateTime(2023, 02, 28));
@@ -61,12 +62,85 @@ namespace Spg.SpengerShop.Application.Test.Mock
                 .Setup(r => r.GetByPK("Test Product 99"))
                 .Returns(MockUtilities.GetSeedingProduct(MockUtilities.GetSeedingCategory(MockUtilities.GetSeedingShop())));
             _productRepository.Setup(r => r.Create(entity));
+            _readOnlyCategoryRepository
+                .Setup(r => r.GetByGuid<Category>(new Guid("d2616f6e-7424-4b9f-bf81-6aad88183f41")))
+                .Returns(MockUtilities.GetSeedingCategory(MockUtilities.GetSeedingShop()));
 
             // Act
             _unitToTest.Create(dto);
 
             // Assert
             _productRepository.Verify(r => r.Create(It.IsAny<Product>()), Times.Once);
+        }
+
+        [Fact]
+        public void Create_Product_CategoryNotFound_Test()
+        {
+            // Arrange
+            NewProductDto dto = new NewProductDto()
+            {
+                Name = "Test Product 1",
+                Tax = 10,
+                Ean = "1234567891234",
+                Material = "MyProduct Material 1",
+                ExpiryDate = new DateTime(2023, 03, 17),
+                CategoryId = Guid.NewGuid()
+            };
+            Product entity = new Product(
+                "Test Product 1",
+                10,
+                "1234567891234",
+                "MyProduct Material 1",
+                new DateTime(2023, 03, 17),
+                MockUtilities.GetSeedingCategory(MockUtilities.GetSeedingShop())
+            );
+
+            _dateTimeService.Setup(d => d.Now).Returns(new DateTime(2023, 02, 28));
+            _readOnlyProductRepository
+                .Setup(r => r.GetByPK("Test Product 99"))
+                .Returns(MockUtilities.GetSeedingProduct(MockUtilities.GetSeedingCategory(MockUtilities.GetSeedingShop())));
+            _productRepository.Setup(r => r.Create(entity));
+            _readOnlyCategoryRepository
+                .Setup(r => r.GetByGuid<Category>(Guid.NewGuid()))
+                .Returns<Category>(null!);
+
+            // Act + Assert
+            Assert.Throws<CreateProductServiceException>(() => _unitToTest.Create(dto));
+        }
+
+        [Fact]
+        public void Create_Product_CategoryExistsMorThanOnce_Test()
+        {
+            // Arrange
+            NewProductDto dto = new NewProductDto()
+            {
+                Name = "Test Product 1",
+                Tax = 10,
+                Ean = "1234567891234",
+                Material = "MyProduct Material 1",
+                ExpiryDate = new DateTime(2023, 03, 17),
+                CategoryId = new Guid("d2616f6e-7424-4b9f-bf81-6aad88183f41")
+            };
+            Product entity = new Product(
+                "Test Product 1",
+                10,
+                "1234567891234",
+                "MyProduct Material 1",
+                new DateTime(2023, 03, 17),
+                MockUtilities.GetSeedingCategory(MockUtilities.GetSeedingShop())
+            );
+
+            _dateTimeService.Setup(d => d.Now).Returns(new DateTime(2023, 02, 28));
+            _readOnlyProductRepository
+                .Setup(r => r.GetByPK("Test Product 99"))
+                .Returns(MockUtilities.GetSeedingProduct(MockUtilities.GetSeedingCategory(MockUtilities.GetSeedingShop())));
+            _productRepository.Setup(r => r.Create(entity));
+            _readOnlyCategoryRepository
+                .Setup(r => r.GetByGuid<Category>(new Guid("d2616f6e-7424-4b9f-bf81-6aad88183f41")))
+                .Throws(() => new InvalidOperationException("Category mor than once!"));
+
+            // Act + Assert
+            Assert.Throws<CreateProductServiceException>(() => _unitToTest.Create(dto));
         }
     }
 }

@@ -45,6 +45,16 @@ namespace Spg.SpengerShop.Repository
         public T? GetByGuid<T>(Guid guid) where T : class, IFindableByGuid
         {
             return _db.Set<T>().SingleOrDefault(e => e.Guid == guid);
+
+            // Darf man natürlich auch so machen
+            //try
+            //{
+            //    return _db.Set<T>().SingleOrDefault(e => e.Guid == guid);
+            //}
+            //catch (InvalidOperationException ex)
+            //{
+            //    throw new Exception("", ex);
+            //}
         }
 
         public T? GetByEMail<T>(string eMail) where T : class, IFindableByEMail
