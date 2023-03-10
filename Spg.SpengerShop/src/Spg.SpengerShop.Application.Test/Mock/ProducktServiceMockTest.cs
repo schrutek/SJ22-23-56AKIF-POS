@@ -84,8 +84,9 @@ namespace Spg.SpengerShop.Application.Test.Mock
                 Ean = "1234567891234",
                 Material = "MyProduct Material 1",
                 ExpiryDate = new DateTime(2023, 03, 17),
-                CategoryId = Guid.NewGuid()
+                CategoryId = new Guid("d5468a14-8074-4f8c-9f21-3a00f5e99a2c")
             };
+
             Product entity = new Product(
                 "Test Product 1",
                 10,
@@ -101,7 +102,7 @@ namespace Spg.SpengerShop.Application.Test.Mock
                 .Returns(MockUtilities.GetSeedingProduct(MockUtilities.GetSeedingCategory(MockUtilities.GetSeedingShop())));
             _productRepository.Setup(r => r.Create(entity));
             _readOnlyCategoryRepository
-                .Setup(r => r.GetByGuid<Category>(Guid.NewGuid()))
+                .Setup(r => r.GetByGuid<Category>(new Guid("3AE6D70D-7BCA-48E6-A463-53AD3F332987")))
                 .Returns<Category>(null!);
 
             // Act + Assert

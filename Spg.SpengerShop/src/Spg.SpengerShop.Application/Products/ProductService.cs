@@ -30,7 +30,7 @@ namespace Spg.SpengerShop.Application.Products
             _dateTimeService = dateTimeService;
         }
 
-        public IQueryable<Product> GetAll(string filter, string order)
+        public IQueryable<Product> GetAll()
         {
             IQueryable<Product> products = _readOnlyProductRepository.GetAll();
             return products;
