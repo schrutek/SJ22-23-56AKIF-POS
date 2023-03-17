@@ -7,14 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Customers\" />
-    <Folder Include="Shops\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Spg.SpengerShop.Domain\Spg.SpengerShop.Domain.csproj" />
-    <ProjectReference Include="..\Spg.SpengerShop.Repository\Spg.SpengerShop.Repository.csproj" />
-    <ProjectReference Include="..\Spg.SpengerShop.ServicesExtensions\Spg.SpengerShop.ServicesExtensions.csproj" />
   </ItemGroup>
 
 </Project>

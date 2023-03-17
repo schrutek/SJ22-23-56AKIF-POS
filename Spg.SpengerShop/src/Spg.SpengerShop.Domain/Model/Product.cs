@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Spg.SpengerShop.Domain.Interfaces;
 
 namespace Spg.SpengerShop.Domain.Model
 {
-    public class Product
+    public class Product : IEnumerable<PropertyInfo>
     {
         public string Name { get; private set; } = string.Empty;
         public int Tax { get; set; } // Steuerklasse
@@ -36,6 +38,16 @@ namespace Spg.SpengerShop.Domain.Model
             Material = material;
             ExpiryDate = expiryDate;
             CategoryNavigation = category;
+        }
+
+        public IEnumerator<PropertyInfo> GetEnumerator()
+        {
+            return (IEnumerator<PropertyInfo>)this.GetType().GetProperties().AsEnumerable();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,14 +1,9 @@
 ﻿using Spg.SpengerShop.Domain.Dtos;
 using Spg.SpengerShop.Domain.Exceptions;
+using Spg.SpengerShop.Domain.Helpers;
 using Spg.SpengerShop.Domain.Interfaces;
 using Spg.SpengerShop.Domain.Model;
-using Spg.SpengerShop.Repository;
-using Spg.SpengerShop.Repository.Products;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq.Expressions;
 
 namespace Spg.SpengerShop.Application.Products
 {
@@ -18,6 +13,8 @@ namespace Spg.SpengerShop.Application.Products
         private readonly IReadOnlyRepositoryBase<Product> _readOnlyProductRepository;
         private readonly IReadOnlyRepositoryBase<Category> _readOnlyCategoryRepository;
         private readonly IDateTimeService _dateTimeService;
+
+        public IQueryable<Product> Products { get; set; }
 
         public ProductService(IProductRepository repository,
             IReadOnlyRepositoryBase<Product> readOnlyProductRepository,
@@ -30,11 +27,25 @@ namespace Spg.SpengerShop.Application.Products
             _dateTimeService = dateTimeService;
         }
 
-        public IQueryable<Product> GetAll()
+        public Func<IQueryable<Product>, IOrderedQueryable<Product>>? Order { get; set; }
+        public Func<IQueryable<ProductDto>, PagenatedList<ProductDto>>? Paging { get; set; }
+
+        // * Filtering
+        // * Sorting
+        // * Paging
+        public IReadOnlyProductService Load()
         {
-            IQueryable<Product> products = _readOnlyProductRepository.GetAll();
-            return products;
+            // Authentication
+            Products = _readOnlyProductRepository.GetAll();
+            return this;
         }
+
+        public IQueryable<Product> GetData()
+        {
+            return Products;
+        }
+
+        //...
 
         // Kommt später dran
         /// <summary>
@@ -80,13 +91,20 @@ namespace Spg.SpengerShop.Application.Products
                 throw new CreateProductServiceException("Produkt existiert bereits!");
             }
             // * ExpiaryDate muss in der Zukunft liegen
-            if (newProduct.ExpiryDate.Value < _dateTimeService.Now.AddDays(14))
+            if (newProduct.ExpiryDate.HasValue && newProduct.ExpiryDate.Value < _dateTimeService.Now.AddDays(14))
             {
                 throw new CreateProductServiceException("Ablaufdatum muss 2 Wochen in der Zukuft liegen!");
             }
 
             // Act + Save
-            _repository.Create(newProduct);
+            try
+            {
+                _repository.Create(newProduct);
+            }
+            catch (ProductRepositoryCreateException ex)
+            {
+                throw new CreateProductServiceException("Create ist fehlgeschlagen!");
+            }
 
             // [Save] wird im Repository aufgerufen
 

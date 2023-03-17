@@ -28,7 +28,7 @@ IQueryable<Product> result = new ProductService(
     new ProductRepository(db), 
     new RepositoryBase<Product>(db),
     new RepositoryBase<Category>(db),
-    new DateTimeService()).GetAll();
+    new DateTimeService()).Load();
 foreach (Product p in result.ToList())
 {
     Console.WriteLine($"{p.Name} - {p.Ean} - {p.Material}");

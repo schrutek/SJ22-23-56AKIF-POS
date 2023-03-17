@@ -26,6 +26,21 @@ namespace Spg.SpengerShop.Application.Test.Helpers
                                 new DateTime(2023, 03, 17), category);
         }
 
-        // ...
+        public static List<Product> GetSeedingProducts(Category category)
+        {
+            return new List<Product>()
+            {
+                new Product("Test Product 01", 10, "1234567891147", "MyProduct Material 1",
+                                new DateTime(2023, 03, 17), category),
+                new Product("Test Product 02", 10, "1234567891137", "MyProduct Material 2",
+                                new DateTime(2023, 03, 17), category),
+                new Product("Test Product 03", 10, "1234567891589", "MyProduct Material 3",
+                                new DateTime(2023, 03, 17), category),
+                new Product("Test Product 04", 10, "1234567891226", "MyProduct Material 4",
+                                new DateTime(2023, 03, 17), category),
+                new Product("Test Product 05", 10, "1234567891149", "MyProduct Material 5",
+                                new DateTime(2023, 03, 17), category),
+            };
+        }
     }
 }

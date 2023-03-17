@@ -143,5 +143,35 @@ namespace Spg.SpengerShop.Application.Test.Mock
             // Act + Assert
             Assert.Throws<CreateProductServiceException>(() => _unitToTest.Create(dto));
         }
+
+        [Fact]
+        public void Create_Product_CreateFailed_Test()
+        {
+            // Arrange
+            NewProductDto dto = new NewProductDto()
+            {
+                Name = "Test Product 1",
+                Tax = 10,
+                Ean = "1234567891234",
+                Material = "MyProduct Material 1",
+                ExpiryDate = new DateTime(2023, 03, 17),
+                CategoryId = new Guid("d2616f6e-7424-4b9f-bf81-6aad88183f41")
+            };
+
+            _dateTimeService.Setup(d => d.Now).Returns(new DateTime(2023, 02, 28));
+            _readOnlyProductRepository
+                .Setup(r => r.GetByPK("Test Product 99"))
+                .Returns(MockUtilities.GetSeedingProduct(MockUtilities.GetSeedingCategory(MockUtilities.GetSeedingShop())));
+            _readOnlyCategoryRepository
+                .Setup(r => r.GetByGuid<Category>(new Guid("d2616f6e-7424-4b9f-bf81-6aad88183f41")))
+                .Returns(MockUtilities.GetSeedingCategory(MockUtilities.GetSeedingShop()));
+            _productRepository
+                .Setup(r => r.Create(It.IsAny<Product>()))
+                .Throws(() => new ProductRepositoryCreateException("Foreign Key constraint!"));
+
+            // Act + Assert
+            CreateProductServiceException ex = Assert.Throws<CreateProductServiceException>(() => _unitToTest.Create(dto));
+            Assert.Equal("Create ist fehlgeschlagen!", ex.Message);
+        }
     }
 }
