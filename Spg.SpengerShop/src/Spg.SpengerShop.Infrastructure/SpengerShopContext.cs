@@ -97,11 +97,11 @@ namespace Spg.SpengerShop.Infrastructure
                     {
                         c.FirstName = f.Name.FirstName(Bogus.DataSets.Name.Gender.Male);
                     }
-                    c.Address = new Address(
-                        f.Address.StreetName(),
-                        f.Address.BuildingNumber(),
-                        f.Address.ZipCode(),
-                        f.Address.City());
+                    //c.Address = new Address(
+                    //    f.Address.StreetName(),
+                    //    f.Address.BuildingNumber(),
+                    //    f.Address.ZipCode(),
+                    //    f.Address.City());
                     c.PhoneNumber = f.Phone.PhoneNumber();
                     c.LastChangeDate = f.Date.Between(new DateTime(2020, 01, 01), DateTime.Now).Date.OrNull(f, 0.3f);
                 })

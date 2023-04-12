@@ -13,7 +13,8 @@ namespace Spg.SpengerShop.Domain.Model
         public decimal Gross { get { return Nett * ((Tax / 100) + 1); } }
 
 
-        public virtual Product ProductNavigation { get; private set; } = null!;
+        public string ProductNavigationId { get; set; }
+        public virtual Product ProductNavigation { get; set; } = default!;
         public int CatPriceTypeNavigationId { get; set; }
         public virtual CatPriceType CatPriceTypeNavigation { get; private set; } = null!;
 

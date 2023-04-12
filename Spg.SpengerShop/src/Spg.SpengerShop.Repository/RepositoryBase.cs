@@ -24,13 +24,27 @@ namespace Spg.SpengerShop.Repository
             _db = db;
         }
 
-        public void Create(TEntity newEntity)
+        public int Create(TEntity newEntity)
         {
             try
             {
                 DbSet<TEntity> dbSet = _db.Set<TEntity>();
                 dbSet.Add(newEntity);
-                _db.SaveChanges(); // => Insert
+                return _db.SaveChanges(); // => Insert Into () Values ()
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new ProductRepositoryCreateException("Create nicht möglich!", ex);
+            }
+        }
+
+        public int Update(TEntity newEntity)
+        {
+            try
+            {
+                DbSet<TEntity> dbSet = _db.Set<TEntity>();
+                dbSet.Update(newEntity);
+                return _db.SaveChanges(); // => Update (x="", y="") where 
             }
             catch (DbUpdateException ex)
             {
@@ -41,6 +55,14 @@ namespace Spg.SpengerShop.Repository
         public TEntity? GetByPK<TKey>(TKey pk)
         {
             return _db.Set<TEntity>().Find(pk);
+        }
+        public TEntity? GetByPK<TKey1, TKey2>(TKey1 pk1, TKey2 pk2)
+        {
+            return _db.Set<TEntity>().Find(pk1, pk2);
+        }
+        public TEntity? GetByPK<TKey1, TKey2, TKey3>(TKey1 pk1, TKey2 pk2, TKey3 pk3)
+        {
+            return _db.Set<TEntity>().Find(pk1, pk2, pk3);
         }
 
         public T? GetByGuid<T>(Guid guid) where T : class, IFindableByGuid

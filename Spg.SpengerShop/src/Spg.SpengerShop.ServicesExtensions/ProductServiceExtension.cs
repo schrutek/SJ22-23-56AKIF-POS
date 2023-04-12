@@ -28,13 +28,6 @@ namespace Spg.SpengerShop.ServicesExtensions
 
         public static IReadOnlyProductService UseSorting(this IReadOnlyProductService service, string columName) // "tax" oder "tax_desc"
         {
-            Product p = new Product("", 1, "", "", DateTime.Now, null!);
-            foreach (var item in p) 
-            {
-
-            }
-
-
             // Sortierlogik
             // switch case (Delegate) / Reflextions
             service.Products = service.Products.OrderBy(p => p.GetType().GetProperties().SingleOrDefault(p => p.Name.ToLower() == columName.ToLower()));
@@ -48,4 +41,5 @@ namespace Spg.SpengerShop.ServicesExtensions
             // Skip/Take
             return service;
         }
+    }
 }

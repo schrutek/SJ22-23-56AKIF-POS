@@ -27,9 +27,6 @@ namespace Spg.SpengerShop.Application.Products
             _dateTimeService = dateTimeService;
         }
 
-        public Func<IQueryable<Product>, IOrderedQueryable<Product>>? Order { get; set; }
-        public Func<IQueryable<ProductDto>, PagenatedList<ProductDto>>? Paging { get; set; }
-
         // * Filtering
         // * Sorting
         // * Paging
@@ -40,9 +37,9 @@ namespace Spg.SpengerShop.Application.Products
             return this;
         }
 
-        public IQueryable<Product> GetData()
+        public IEnumerable<Product> GetData()
         {
-            return Products;
+            return Products.ToList();
         }
 
         //...

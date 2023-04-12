@@ -3,6 +3,7 @@
 using Microsoft.EntityFrameworkCore;
 using Spg.SpengerShop.Application.Helpers;
 using Spg.SpengerShop.Application.Products;
+using Spg.SpengerShop.Domain.Interfaces;
 using Spg.SpengerShop.Domain.Model;
 using Spg.SpengerShop.Infrastructure;
 using Spg.SpengerShop.Repository;
@@ -24,12 +25,12 @@ db2.Database.EnsureDeleted();
 db2.Database.EnsureCreated();
 db2.Seed(); 
 
-IQueryable<Product> result = new ProductService(
+IReadOnlyProductService result = new ProductService(
     new ProductRepository(db), 
     new RepositoryBase<Product>(db),
     new RepositoryBase<Category>(db),
     new DateTimeService()).Load();
-foreach (Product p in result.ToList())
+foreach (Product p in result.GetData())
 {
     Console.WriteLine($"{p.Name} - {p.Ean} - {p.Material}");
 }

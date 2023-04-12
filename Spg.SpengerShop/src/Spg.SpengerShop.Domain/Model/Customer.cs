@@ -30,7 +30,7 @@ namespace Spg.SpengerShop.Domain.Model
         private List<ShoppingCart> _shoppingCarts = new();
         public virtual IReadOnlyList<ShoppingCart> ShoppingCarts => _shoppingCarts;
 
-        public Customer()
+        protected Customer()
         { }
         public Customer(
             Guid guid,
@@ -41,7 +41,7 @@ namespace Spg.SpengerShop.Domain.Model
             string eMail,
             DateTime birthDate,
             DateTime registrationDateTime,
-            Address? Address)
+            Address? address)
         {
             Guid = guid;
             Gender = gender;
@@ -51,7 +51,7 @@ namespace Spg.SpengerShop.Domain.Model
             EMail = eMail;
             BirthDate = birthDate;
             RegistrationDateTime = registrationDateTime;
-            Address = Address;
+            Address = address;
         }
     }
 }

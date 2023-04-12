@@ -13,6 +13,9 @@ namespace Spg.SpengerShop.Domain.Model
         public string Zip { get; set; } = string.Empty;
         public string City { get; set; } = string.Empty;
 
+        protected Address()
+        { }
+
         public Address(string street, string number, string zip, string city)
         {
             Street = street;

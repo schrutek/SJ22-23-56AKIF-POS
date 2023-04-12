@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Bogus.DataSets;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Spg.SpengerShop.Application.CQRS.Products.Queries;
 using Spg.SpengerShop.Domain.Dtos;
 using Spg.SpengerShop.Domain.Interfaces;
 using Spg.SpengerShop.Domain.Model;
+using Spg.SpengerShop.ServicesExtensions;
 
 namespace Spg.SpengerShop.MvcFrontEnd.Controllers
 {
@@ -9,19 +13,42 @@ namespace Spg.SpengerShop.MvcFrontEnd.Controllers
     {
         private readonly IReadOnlyProductService _readOnlyProductService;
         private readonly IAddableProductService _addableProductService;
+        private readonly IMediator _mediator;
 
-        public ProductController(IReadOnlyProductService readOnlyProductService, IAddableProductService addableProductService)
+        public ProductController(
+            IReadOnlyProductService readOnlyProductService, 
+            IAddableProductService addableProductService,
+            IMediator mediator)
         {
             _readOnlyProductService = readOnlyProductService;
             _addableProductService = addableProductService;
+            _mediator = mediator;
         }
 
+        // /Product/Index
+        // Mittels CRUD
+        [HttpGet()]
         public IActionResult Index()
         {
-            IEnumerable<Product> model = _readOnlyProductService.Load();
+            IEnumerable<Product> model = _readOnlyProductService
+                .Load()
+                .UseFilterContainsName("rub")
+                .GetData();
+
+            return View(model);
+        }
+        
+        // /Product/Details/Ergonomic%20Rubber%20Car
+        // Mittels Mediator & CQRS
+        [HttpGet()]
+        public IActionResult Details(string id)
+        {
+            Product model = _mediator.Send(new GetProductByNameRequest(id)).Result;
+
             return View(model);
         }
 
+        [HttpPost()]
         public IActionResult Create(NewProductDto newProduct)
         {
             if (ModelState.IsValid)

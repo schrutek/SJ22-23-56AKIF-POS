@@ -9,7 +9,7 @@ using Spg.SpengerShop.Domain.Interfaces;
 
 namespace Spg.SpengerShop.Domain.Model
 {
-    public class Product : IEnumerable<PropertyInfo>
+    public class Product
     {
         public string Name { get; private set; } = string.Empty;
         public int Tax { get; set; } // Steuerklasse
@@ -38,16 +38,6 @@ namespace Spg.SpengerShop.Domain.Model
             Material = material;
             ExpiryDate = expiryDate;
             CategoryNavigation = category;
-        }
-
-        public IEnumerator<PropertyInfo> GetEnumerator()
-        {
-            return (IEnumerator<PropertyInfo>)this.GetType().GetProperties().AsEnumerable();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            throw new NotImplementedException();
         }
     }
 }

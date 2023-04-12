@@ -11,6 +11,7 @@ namespace Spg.SpengerShop.Domain.Interfaces
     public interface IRepositoryBase<TEntity>
         where TEntity : class
     {
-        void Create(TEntity newProduct);
+        int Create(TEntity newProduct);
+        int Update(TEntity newEntity);
     }
 }
