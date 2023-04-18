@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Spg.SpengerShop.Application.CQRS.Products.Queries
+namespace Spg.SpengerShop.Application.CQRS.Products.GetByName.Queries
 {
     public class GetProductByNameRequestHandler : IRequestHandler<GetProductByNameRequest, Product>
     {

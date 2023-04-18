@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <Folder Include="CQRS\Products\Commands\" />
+    <Folder Include="CQRS\Products\FilterByExpiryDate\Commands\" />
+    <Folder Include="CQRS\Products\GetByName\Commands\" />
     <Folder Include="Customers\" />
     <Folder Include="Shops\" />
   </ItemGroup>

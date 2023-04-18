@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Spg.SpengerShop.Application.CQRS.Products.Queries;
+using Spg.SpengerShop.Application.CQRS.Products.FilterByExpiryDate.Queries;
+using Spg.SpengerShop.Application.CQRS.Products.GetByName.Queries;
 using Spg.SpengerShop.Application.Helpers;
 using Spg.SpengerShop.Application.Products;
 using Spg.SpengerShop.Core;
@@ -32,6 +33,7 @@ builder.Services.AddTransient<IReadOnlyRepositoryBase<Category>, RepositoryBase<
 builder.Services.AddMediatR(config => 
     config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 builder.Services.AddTransient<IRequestHandler<GetProductByNameRequest, Product>, GetProductByNameRequestHandler>();
+builder.Services.AddTransient<IRequestHandler<GetByExpiryDateRequest, IQueryable<Product>>, GetByExpiryDateRequestHandler>();
 
 builder.Services.ConfigureSqLite(connectionString);
 
