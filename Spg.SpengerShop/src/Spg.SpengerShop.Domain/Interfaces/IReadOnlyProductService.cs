@@ -9,6 +9,6 @@ namespace Spg.SpengerShop.Domain.Interfaces
         // Ausschließlich Read-Actions (GetById, GetAll, GetFiltered, GetByName, GetByEan)
         IQueryable<Product> Products { get; set; }
         IReadOnlyProductService Load();
-        IEnumerable<Product> GetData();
+        IEnumerable<ProductDto> GetData();
     }
 }

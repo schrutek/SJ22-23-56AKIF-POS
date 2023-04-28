@@ -1,6 +1,6 @@
 ﻿@using Spg.SpengerShop.Domain.Model;
 
-@model IEnumerable<Product>
+@model IEnumerable<ProductDto>
 
 <h1>Delete</h1>
 <h1>
@@ -11,6 +11,11 @@
     Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 </p>
 
+@{
+    int x=5;
+    DateTime now = DateTime.Now;
+}
+
 <table class="table table-striped table-hover">
     <thead>
         <tr>
@@ -18,7 +23,12 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (Product product in Model)
+        @if (x == 5)
+        {
+               
+        }
+
+        @foreach (ProductDto product in Model)
         {
             <tr>
                 <td>@product.Name</td>

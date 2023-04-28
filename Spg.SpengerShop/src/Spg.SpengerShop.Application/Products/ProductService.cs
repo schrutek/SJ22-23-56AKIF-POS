@@ -37,9 +37,12 @@ namespace Spg.SpengerShop.Application.Products
             return this;
         }
 
-        public IEnumerable<Product> GetData()
+        public IEnumerable<ProductDto> GetData()
         {
-            return Products.ToList();
+            return Products
+                .Select(p => 
+                    new ProductDto(p.Name, p.Tax, p.Ean, p.Material, p.ExpiryDate))
+                .ToList();
         }
 
         //...

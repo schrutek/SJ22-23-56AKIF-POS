@@ -10,13 +10,13 @@ using Spg.SpengerShop.ServicesExtensions;
 
 namespace Spg.SpengerShop.MvcFrontEnd.Controllers
 {
-    public class ProductController : Controller
+    public class ProductsController : Controller
     {
         private readonly IReadOnlyProductService _readOnlyProductService;
         private readonly IAddableProductService _addableProductService;
         private readonly IMediator _mediator;
 
-        public ProductController(
+        public ProductsController(
             IReadOnlyProductService readOnlyProductService, 
             IAddableProductService addableProductService,
             IMediator mediator)
@@ -31,7 +31,7 @@ namespace Spg.SpengerShop.MvcFrontEnd.Controllers
         [HttpGet()]
         public IActionResult Index()
         {
-            IEnumerable<Product> model = _readOnlyProductService
+            IEnumerable<ProductDto> model = _readOnlyProductService
                 .Load()
                 .UseFilterContainsName("rub")
                 .GetData();
@@ -42,13 +42,16 @@ namespace Spg.SpengerShop.MvcFrontEnd.Controllers
         // /Product/Details/Ergonomic%20Rubber%20Car
         // Mittels Mediator & CQRS
         [HttpGet()]
-        public IActionResult Details(string id)
+        public IActionResult Details(string id, int? state)
         {
-            Product model = _mediator.Send(new GetProductByNameRequest(id)).Result;
+            Product model = _mediator
+                .Send(new GetProductByNameRequest(id))
+                .Result;
 
             return View(model);
         }
 
+        // /Products/Expires
         [HttpGet()]
         public IActionResult Expires()
         {
@@ -56,7 +59,8 @@ namespace Spg.SpengerShop.MvcFrontEnd.Controllers
                 .Send(new GetByExpiryDateRequest(DateTime.Now.AddDays(14)))
                 .Result;
 
-            return View(model);
+            // Bad Coding, bitte besser machen
+            return View("Expires", model.Select(p => new ProductDto(p.Name, p.CategoryId, p.Ean, p.Material, p.ExpiryDate)));
         }
 
         [HttpPost()]
@@ -68,6 +72,20 @@ namespace Spg.SpengerShop.MvcFrontEnd.Controllers
             }
             _addableProductService.Create(newProduct);
             return View();
+        }
+
+        [HttpGet()]
+        public IActionResult ConfirmDelete(string name)
+        {
+            // TODO: Seite mit Info "wirklich löschen" anzeigen
+            return View();
+        }
+
+        [HttpPost()]
+        public IActionResult Delete(string name)
+        {
+            // TODO: Logik zum löschen in der DB
+            return View("DeleteDone");
         }
     }
 }

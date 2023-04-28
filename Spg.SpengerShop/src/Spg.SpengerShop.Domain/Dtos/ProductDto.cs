@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,7 +12,10 @@ namespace Spg.SpengerShop.Domain.Dtos
         string Name,
         int Tax,
         string Ean,
-        string Material,
-        DateTime ExpiryDate
-    );
+        string? Material,
+        DateTime? ExpiryDate
+    )
+    {
+        public bool IsExpired => ExpiryDate < DateTime.Now;
+    }
 }

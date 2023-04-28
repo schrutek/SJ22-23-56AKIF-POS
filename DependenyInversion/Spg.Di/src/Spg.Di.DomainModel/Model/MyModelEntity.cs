@@ -21,7 +21,7 @@ namespace Spg.Di.DomainModel.Model
 
         public void DoSomething()
         {
-            _logger.Log("Log that somethis was done!");
+            _logger.Log("Log that something was done!");
         }
     }
 }
