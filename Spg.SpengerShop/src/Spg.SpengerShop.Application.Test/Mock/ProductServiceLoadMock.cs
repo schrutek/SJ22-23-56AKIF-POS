@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Spg.SpengerShop.ServicesExtensions;
+using Spg.SpengerShop.Domain.Dtos;
 
 namespace Spg.SpengerShop.Application.Test.Mock
 {
@@ -43,7 +44,7 @@ namespace Spg.SpengerShop.Application.Test.Mock
                 .Returns(MockUtilities.GetSeedingProducts(MockUtilities.GetSeedingCategory(MockUtilities.GetSeedingShop())).AsQueryable());
 
             // Act
-            List<Product> actual = _unitToTest
+            List<ProductDto> actual = _unitToTest
                 .Load()
                 .UseFilterContainsName("t")
                 .UseFilterByExpiryDate(DateTime.Now, DateTime.Now)

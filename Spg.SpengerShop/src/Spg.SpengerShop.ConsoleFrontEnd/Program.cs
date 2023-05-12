@@ -3,6 +3,7 @@
 using Microsoft.EntityFrameworkCore;
 using Spg.SpengerShop.Application.Helpers;
 using Spg.SpengerShop.Application.Products;
+using Spg.SpengerShop.ConsoleFrontEnd;
 using Spg.SpengerShop.Domain.Interfaces;
 using Spg.SpengerShop.Domain.Model;
 using Spg.SpengerShop.Infrastructure;
@@ -30,7 +31,15 @@ IReadOnlyProductService result = new ProductService(
     new RepositoryBase<Product>(db),
     new RepositoryBase<Category>(db),
     new DateTimeService()).Load();
-foreach (Product p in result.GetData())
-{
-    Console.WriteLine($"{p.Name} - {p.Ean} - {p.Material}");
-}
+//foreach (Product p in result.GetData())
+//{
+//    Console.WriteLine($"{p.Name} - {p.Ean} - {p.Material}");
+//}
+
+
+
+
+
+MyImprtantClass micl = new MyImprtantClass();
+micl.Method1();
+micl.Method2();

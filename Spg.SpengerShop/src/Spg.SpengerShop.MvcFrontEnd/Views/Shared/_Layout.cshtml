@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Spg.SpengerShop.MvcFrontEnd.Helpers;
+
+@inject HttpService httpService
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -29,7 +33,14 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">Products</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="DummyLogin" asp-action="Login">Login</a>
+                        </li>
                     </ul>
+
+                    <span>Wilkommen @httpService.GetCookieInfo()!</span>
+                    <a asp-controller="DummyLogin" asp-action="Logout">Logout</a>
+
                 </div>
             </div>
         </nav>
