@@ -9,6 +9,6 @@ namespace Spg.SpengerShop.Domain.Interfaces
 {
     public interface IAuthService
     {
-        UserInformationDto Login(string username, string password, string role);
+        (bool isLoggedIn, UserInformationDto? dto, string message) Login(string username, ReadOnlySpan<char> password, string role);
     }
 }

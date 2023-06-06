@@ -68,7 +68,7 @@ namespace Spg.SpengerShop.RepositoryTest
                 Product expected = new Product("Test Product 99", 20, "1234567890123", "Testmaterial", new DateTime(2023, 03, 17), db.Categories.Single(c => c.Id == 1));
 
                 // Act
-                Product actual = new RepositoryBase<Product>(db).GetByPK("Test Product 99")!;
+                Product actual = new RepositoryBase<Product>(db).GetByPK<string, ShoppingCartItem>("Test Product 99")!;
 
                 // Assert
                 Assert.Equal(expected.Name, actual.Name);
@@ -87,7 +87,7 @@ namespace Spg.SpengerShop.RepositoryTest
                 Category expected = new Category("DVD", new Guid("d2616f6e-7424-4b9f-bf81-6aad88183f41"), null!);
 
                 // Act
-                Category actual = new RepositoryBase<Category>(db).GetByPK(1)!;
+                Category actual = new RepositoryBase<Category>(db).GetByPK<int, ShoppingCartItem>(1)!;
 
                 // Assert
                 Assert.Equal(expected.Name, actual.Name);

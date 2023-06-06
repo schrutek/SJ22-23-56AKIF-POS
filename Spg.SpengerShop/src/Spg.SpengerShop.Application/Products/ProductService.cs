@@ -33,16 +33,31 @@ namespace Spg.SpengerShop.Application.Products
         public IReadOnlyProductService Load()
         {
             // Authentication
-            Products = _readOnlyProductRepository.GetAll();
+            Products = _readOnlyProductRepository.GetAll(includeNavigationProperty: "ShoppingCartItems");
             return this;
         }
 
         public IEnumerable<ProductDto> GetData()
         {
-            return Products
-                .Select(p => 
-                    new ProductDto(p.Name, p.Tax, p.Ean, p.Material, p.ExpiryDate))
-                .ToList();
+            IEnumerable<ProductDto> result = Products.Select(p => new ProductDto(
+                p.Name,
+                p.Tax,
+                p.Ean,
+                p.Material,
+                p.ExpiryDate)
+                {
+                    ShoppingCartItems = p.ShoppingCartItems.Select(i => 
+                        new ShoppingCartItemDto(i.Id, i is ShippableShoppingCartItem)
+                    {
+                        ProductNavigation = new ProductDto(
+                            i.ProductNavigation.Name,
+                            i.ProductNavigation.Tax,
+                            i.ProductNavigation.Ean,
+                            i.ProductNavigation.Material,
+                            i.ProductNavigation.ExpiryDate)
+                    }).ToList()
+                });
+            return result;
         }
 
         //...
@@ -86,7 +101,7 @@ namespace Spg.SpengerShop.Application.Products
 
             // Validation
             // * Es muss unique sein
-            if (_readOnlyProductRepository.GetByPK(newProduct.Name) is not null)
+            if (_readOnlyProductRepository.GetByPK<string, ShoppingCartItem>(newProduct.Name) is not null)
             {
                 throw new CreateProductServiceException("Produkt existiert bereits!");
             }

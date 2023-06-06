@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Spg.SpengerShop.Application.CQRS.Products.GetByName.Queries
 {
-    public class GetProductByNameRequest : IRequest<Product>
+    public class GetProductByNameRequest : IRequest<ProductDto>
     {
         public string Name { get; set; }
 

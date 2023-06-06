@@ -12,7 +12,16 @@ namespace Spg.SpengerShop.Domain.Interfaces
     public interface IReadOnlyRepositoryBase<TEntity>
         where TEntity : class
     {
-        TEntity? GetByPK<TKey>(TKey pk);
+        TEntity? GetByPK<TKey, TProperty>(
+            TKey pk,
+            Expression<Func<TEntity, IEnumerable<TProperty>>>? includeCollection = null,
+            Expression<Func<TEntity, TProperty>>? includeReference = null)
+            where TProperty : class;
+        TEntity? GetByPKAndIncudes<TKey, TProperty>(
+            TKey pk,
+            List<Expression<Func<TEntity, IEnumerable<TProperty>>>?>? includeCollection = null,
+            Expression<Func<TEntity, TProperty>>? includeReference = null)
+            where TProperty : class;
 
         T? GetByGuid<T>(Guid guid) where T : class, IFindableByGuid;
 

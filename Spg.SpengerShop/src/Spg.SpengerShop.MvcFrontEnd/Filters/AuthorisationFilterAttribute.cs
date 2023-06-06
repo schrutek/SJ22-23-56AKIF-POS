@@ -13,14 +13,14 @@ namespace Spg.SpengerShop.MvcFrontEnd.Filters
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            string? json = context.HttpContext.Request.Cookies["usernamecookie6akif"];
-            if (string.IsNullOrEmpty(json))
+            string? token = context.HttpContext.Request.Cookies["usernamecookie6akif"];
+            if (string.IsNullOrEmpty(token))
             {
                 context.Result = new RedirectToActionResult("Unauthorized", "Home", null);
                 return;
             }
             
-            UserInformationDto? userInformation = JsonSerializer.Deserialize<UserInformationDto>(json);
+            UserInformationDto? userInformation = JsonSerializer.Deserialize<UserInformationDto>(token);
             if (userInformation is null)
             {
                 context.Result = new RedirectToActionResult("Unauthorized", "Home", null);

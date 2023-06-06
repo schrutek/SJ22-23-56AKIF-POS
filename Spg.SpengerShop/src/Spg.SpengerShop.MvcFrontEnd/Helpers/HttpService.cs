@@ -27,9 +27,16 @@ namespace Spg.SpengerShop.MvcFrontEnd.Helpers
                 ?? "unbekannt";
         }
 
-        public string GetCookieInfo()
+        public string IsLoggedIn
         {
-            return _context.Request.Cookies["usernamecookie6akif"]!;
+            get
+            {
+                if (!string.IsNullOrEmpty(_context.Request.Cookies["usernamecookie6akif"]))
+                {
+                    return "";
+                }
+                return "disabled";
+            }
         }
     }
 }

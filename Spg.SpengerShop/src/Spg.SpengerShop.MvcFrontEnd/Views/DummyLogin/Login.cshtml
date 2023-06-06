@@ -1,8 +1,15 @@
-﻿@model LoginDto
+﻿@model (LoginDto, IEnumerable<SelectListItem>)
+
 <h1>Dummy Login</h1>
 
 <form method="post">
-    <input name="UserName" value="@Model.UserName" type="text" placeholder="Username..." />
-    <input name="Role" value="@Model.Role" type="text" placeholder="Role..." />
+    <input name="UserName" value="@Model.Item1.UserName" type="text" placeholder="Username..." />
+    <input name="Password" value="@Model.Item1.Password" type="text" placeholder="Password..." />
+    <select name="Role" asp-for="@Model.Item1.Role" asp-items="@Model.Item2">
+    </select>
+
+@*    <select name="Role" asp-for="@Model.Item1.Role" asp-items="@ViewBag.roles">
+    </select>
+*@
     <button type="submit">Log In</button>
 </form>

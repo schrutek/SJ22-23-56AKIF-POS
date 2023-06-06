@@ -1,4 +1,5 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.IdentityModel.Tokens;
 using Spg.SpengerShop.Application.Helpers;
 using Spg.SpengerShop.Domain.Dtos;
 using Spg.SpengerShop.Domain.Interfaces;
@@ -37,21 +38,6 @@ namespace Spg.SpengerShop.MvcFrontEnd.Services
             }
             _secret = Convert.FromBase64String(secret);
             _authService = authService;
-        }
-
-        /// <summary>
-        /// Prüft, ob der übergebene User existiert und gibt seine Rolle zurück.
-        /// TODO: Anpassen der Logik an die eigenen Erfordernisse.
-        /// </summary>
-        /// <param name="credentials">Benutzername und Passwort, die geprüft werden.</param>
-        /// <returns>
-        /// Rolle, wenn der Benutzer authentifiziert werden konnte.
-        /// Null, wenn der Benutzer nicht authentifiziert werden konnte.
-        /// </returns>
-        protected UserInformationDto CheckUser(LoginDto credentials)
-        {
-            string hashedPassword = HashHelper.CalculateHash(credentials.Password, _salt);
-            return _authService.Login(credentials.UserName, hashedPassword, "guest");
         }
 
         /// <summary>
@@ -97,12 +83,12 @@ namespace Spg.SpengerShop.MvcFrontEnd.Services
         {
             if (credentials is null) { throw new ArgumentNullException(nameof(credentials)); }
 
-            UserInformationDto authInfos;
-            try
-            {
-                authInfos = CheckUser(credentials);
-            }
-            catch (AuthenticationException) { throw; }
+            UserInformationDto authInfos = new UserInformationDto();
+            //try
+            //{
+            //    authInfos = CheckUser(credentials);
+            //}
+            //catch (AuthenticationException) { throw; }
 
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
             SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
@@ -134,12 +120,12 @@ namespace Spg.SpengerShop.MvcFrontEnd.Services
         /// <returns></returns>
         public ClaimsIdentity GenerateIdentity(LoginDto credentials)
         {
-            UserInformationDto authInfos;
-            try
-            {
-                authInfos = CheckUser(credentials);
-            }
-            catch (AuthenticationException) { throw; }
+            UserInformationDto authInfos = new UserInformationDto();
+            //try
+            //{
+            //    authInfos = CheckUser(credentials);
+            //}
+            //catch (AuthenticationException) { throw; }
 
             List<Claim> claims = new List<Claim>
             {
@@ -147,11 +133,39 @@ namespace Spg.SpengerShop.MvcFrontEnd.Services
                 new Claim(ClaimTypes.Surname, authInfos.FirstName),
                 new Claim(ClaimTypes.GivenName, authInfos.LastName),
                 new Claim(ClaimsIdentity.DefaultRoleClaimType, authInfos.Role),
+                //...
             };
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(
                 claims,
                 Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme);
             return claimsIdentity;
+        }
+
+        public AuthenticationProperties GetAuthenticationProperties() 
+        {
+            return new AuthenticationProperties
+            {
+                //AllowRefresh = <bool>,
+                // Refreshing the authentication session should be allowed.
+
+                //ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
+                // The time at which the authentication ticket expires. A 
+                // value set here overrides the ExpireTimeSpan option of 
+                // CookieAuthenticationOptions set with AddCookie.
+
+                //IsPersistent = true,
+                // Whether the authentication session is persisted across 
+                // multiple requests. When used with cookies, controls
+                // whether the cookie's lifetime is absolute (matching the
+                // lifetime of the authentication ticket) or session-based.
+
+                //IssuedUtc = <DateTimeOffset>,
+                // The time at which the authentication ticket was issued.
+
+                //RedirectUri = <string>
+                // The full path or absolute URI to be used as an http 
+                // redirect response value.
+            };
         }
     }
 }

@@ -59,7 +59,7 @@ namespace Spg.SpengerShop.Application.Test.Mock
 
             _dateTimeService.Setup(d => d.Now).Returns(new DateTime(2023, 02, 28));
             _readOnlyProductRepository
-                .Setup(r => r.GetByPK("Test Product 99"))
+                .Setup(r => r.GetByPK<string, ShoppingCartItem>("Test Product 99", null, null))
                 .Returns(MockUtilities.GetSeedingProduct(MockUtilities.GetSeedingCategory(MockUtilities.GetSeedingShop())));
             _productRepository.Setup(r => r.Create(entity));
             _readOnlyCategoryRepository
@@ -98,7 +98,7 @@ namespace Spg.SpengerShop.Application.Test.Mock
 
             _dateTimeService.Setup(d => d.Now).Returns(new DateTime(2023, 02, 28));
             _readOnlyProductRepository
-                .Setup(r => r.GetByPK("Test Product 99"))
+                .Setup(r => r.GetByPK<string, ShoppingCartItem>("Test Product 99", null, null))
                 .Returns(MockUtilities.GetSeedingProduct(MockUtilities.GetSeedingCategory(MockUtilities.GetSeedingShop())));
             _productRepository.Setup(r => r.Create(entity));
             _readOnlyCategoryRepository
@@ -133,7 +133,7 @@ namespace Spg.SpengerShop.Application.Test.Mock
 
             _dateTimeService.Setup(d => d.Now).Returns(new DateTime(2023, 02, 28));
             _readOnlyProductRepository
-                .Setup(r => r.GetByPK("Test Product 99"))
+                .Setup(r => r.GetByPK<string, ShoppingCartItem>("Test Product 99", null, null))
                 .Returns(MockUtilities.GetSeedingProduct(MockUtilities.GetSeedingCategory(MockUtilities.GetSeedingShop())));
             _productRepository.Setup(r => r.Create(entity));
             _readOnlyCategoryRepository
@@ -160,7 +160,7 @@ namespace Spg.SpengerShop.Application.Test.Mock
 
             _dateTimeService.Setup(d => d.Now).Returns(new DateTime(2023, 02, 28));
             _readOnlyProductRepository
-                .Setup(r => r.GetByPK("Test Product 99"))
+                .Setup(r => r.GetByPK<string, ShoppingCartItem>("Test Product 99", null, null))
                 .Returns(MockUtilities.GetSeedingProduct(MockUtilities.GetSeedingCategory(MockUtilities.GetSeedingShop())));
             _readOnlyCategoryRepository
                 .Setup(r => r.GetByGuid<Category>(new Guid("d2616f6e-7424-4b9f-bf81-6aad88183f41")))

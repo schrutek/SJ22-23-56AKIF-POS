@@ -13,6 +13,8 @@
                 <th>Material</th>
                 <th>Ean</th>
                 <th>Abgel.</th>
+                <th>??</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -24,11 +26,13 @@
                     expiredClass = "product-expired";
                 }
                 <tr class="@expiredClass">
-                    <td>@product.Name</td>
+                    <td><a asp-controller="Products" asp-action="Details" asp-route-id="@product.Name">@product.Name</a></td>
                     <td>@product.Tax</td>
                     <td>@product.Material</td>
                     <td>@product.Ean</td>
                     <td>@product.IsExpired</td>
+                    <td>@product.ShoppingCartItemsCount</td>
+                    <td><a class="btn btn-primary" asp-controller="Products" asp-action="Details" asp-route-id="@product.Name" asp-route-state="sold">Details</a></td>
                 </tr>
             }
         </tbody>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Spg.SpengerShop.Domain.Exceptions;
 using Spg.SpengerShop.Domain.Interfaces;
 using Spg.SpengerShop.Domain.Model;
@@ -52,9 +53,51 @@ namespace Spg.SpengerShop.Repository
             }
         }
 
-        public TEntity? GetByPK<TKey>(TKey pk)
+        public TEntity? GetByPK<TKey, TProperty>(
+            TKey pk,
+            Expression<Func<TEntity, IEnumerable<TProperty>>>? includeCollection = null,
+            Expression<Func<TEntity, TProperty>>? includeReference = null)
+            where TProperty : class
         {
-            return _db.Set<TEntity>().Find(pk);
+            TEntity? entity = _db.Set<TEntity>().Find(pk);
+            if (entity is not null)
+            {
+                if (includeCollection is not null)
+                {
+                    _db.Entry(entity).Collection(includeCollection).Load();
+                }
+                if (includeReference is not null)
+                {
+                    _db.Entry(entity).Reference(includeReference!).Load();
+                }
+            }
+            return entity;
+        }
+        public TEntity? GetByPKAndIncudes<TKey, TProperty>(
+            TKey pk, 
+            List<Expression<Func<TEntity, IEnumerable<TProperty>>>?>? includeCollection = null,
+            Expression<Func<TEntity, TProperty>>? includeReference = null)
+            where TProperty : class
+        {
+            TEntity? entity = _db.Set<TEntity>().Find(pk);
+            if (entity is not null)
+            {
+                if (includeCollection is not null)
+                {
+                    foreach (Expression<Func<TEntity, IEnumerable<TProperty>>>? item in includeCollection)
+                    {
+                        if (item is not null)
+                        {
+                            _db.Entry(entity).Collection(item).Load();
+                        }
+                    }
+                }
+                if (includeReference is not null)
+                {
+                    _db.Entry(entity).Reference(includeReference!).Load();
+                }
+            }
+            return entity;
         }
         public TEntity? GetByPK<TKey1, TKey2>(TKey1 pk1, TKey2 pk2)
         {
@@ -76,7 +119,7 @@ namespace Spg.SpengerShop.Repository
             //}
             //catch (InvalidOperationException ex)
             //{
-            //    throw new Exception("", ex);
+            //    throw new ...Exception("", ex);
             //}
         }
 

@@ -1,5 +1,29 @@
-﻿@model Spg.SpengerShop.Domain.Model.Product
+﻿@model ProductDto
 
 <h3>Details</h3>
 
-TODO: ...
+<dl>
+    <dd>Name:</dd>
+    <dt>@Model.Name</dt>
+</dl>
+
+<table class="table table-info">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Lieferbar</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(ShoppingCartItemDto item in Model.ShoppingCartItems)
+        {
+            var isShippable = item.IsShippable ? "JA" : "NEIN";
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.ProductNavigation.Name</td>
+                <td>@isShippable</td>
+            </tr>
+        }
+    </tbody>
+</table>

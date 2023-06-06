@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Spg.SpengerShop.Application;
 using Spg.SpengerShop.Domain.Dtos;
 using Spg.SpengerShop.MvcFrontEnd.Filters;
@@ -22,17 +23,18 @@ namespace Spg.SpengerShop.MvcFrontEnd.Controllers
         public IActionResult Index()
         {
             message = "Hello World!!!";
+
+            // TempData für kurzfristige State-Info
+            TempData["myMessage"] = message;
             return View();
         }
 
         [HttpGet()]
-        [AuthorisationFilter()]
+        //[AuthorisationFilter()]
         public IActionResult Privacy()
         {
-            return View("Privacy");
-
-
-            //return RedirectToAction("Unauthorized", "Home");
+            string message = TempData["myMessage"]?.ToString() ?? "";
+            return View("Privacy", message);
         }
 
         [HttpGet()]

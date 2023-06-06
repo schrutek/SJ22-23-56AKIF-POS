@@ -20,6 +20,7 @@ namespace Spg.SpengerShop.Infrastructure
         public DbSet<Shop> Shops => Set<Shop>();
         public DbSet<Category> Categories => Set<Category>();
         public DbSet<Customer> Customers => Set<Customer>();
+        public DbSet<HighRoller> HighRollers => Set<HighRoller>();
         public DbSet<Product> Products => Set<Product>();
         public DbSet<Price> Prices => Set<Price>();
         public DbSet<CatPriceType> CatPriceTypes => Set<CatPriceType>();
@@ -60,6 +61,10 @@ namespace Spg.SpengerShop.Infrastructure
             // Value Object:
             modelBuilder.Entity<Customer>().OwnsOne(c => c.Address);
             modelBuilder.Entity<Shop>().OwnsOne(c => c.Address);
+            modelBuilder.Entity<ShippableShoppingCartItem>().OwnsOne(i => i.Address);
+
+            modelBuilder.Entity<ShippableShoppingCartItem>().HasDiscriminator(i => i.ItemType);
+
         }
 
         public void Seed()
@@ -109,6 +114,27 @@ namespace Spg.SpengerShop.Infrastructure
                 .ToList();
 
             Customers.AddRange(customers);
+            SaveChanges();
+
+            Faker f = new Faker();
+            HighRoller highRoller = new HighRoller(
+                    f.Random.Guid(),
+                    f.Random.Enum<Genders>(),
+                    f.Random.Long(111111, 999999),
+                    f.Name.FirstName(Bogus.DataSets.Name.Gender.Female),
+                    f.Name.LastName(),
+                    f.Internet.Email(),
+                    f.Date.Between(DateTime.Now.AddYears(-60), DateTime.Now.AddYears(-16)),
+                    f.Date.Between(DateTime.Now.AddYears(-10), DateTime.Now.AddDays(-2)),
+                    new Address(
+                        f.Address.StreetName(),
+                        f.Address.BuildingNumber(),
+                        f.Address.ZipCode(),
+                        f.Address.City()),
+                    f.Random.Int(10, 100),
+                    f.Random.Decimal(10000, 100000)
+                );
+            HighRollers.AddRange(highRoller);
             SaveChanges();
 
 
@@ -221,14 +247,30 @@ namespace Spg.SpengerShop.Infrastructure
             SaveChanges();
 
 
+            List<ShippableShoppingCartItem> shippableShoppingCartItem = new Faker<ShippableShoppingCartItem>("de").CustomInstantiator(f =>
+                new ShippableShoppingCartItem(f.Random.ListItem(shoppingCarts), f.Random.ListItem(products), new Address("x", "x", "x", "x"))
+            )
+            .Rules((f, i) =>
+            {
+                i.LastChangeDate = f.Date.Between(new DateTime(2020, 01, 01), DateTime.Now).Date.OrNull(f, 0.3f);
+                i.ProductNavigation = f.Random.ListItem(products);
+                i.ItemType = nameof(ShippableShoppingCartItem);
+            })
+            .Generate(400)
+            .ToList();
+            ShoppingCartItems.AddRange(shippableShoppingCartItem);
+            SaveChanges();
+
             List<ShoppingCartItem> shoppingCartItems = new Faker<ShoppingCartItem>("de").CustomInstantiator(f =>
                 new ShoppingCartItem(f.Random.ListItem(shoppingCarts), f.Random.ListItem(products))
             )
             .Rules((f, i) =>
             {
                 i.LastChangeDate = f.Date.Between(new DateTime(2020, 01, 01), DateTime.Now).Date.OrNull(f, 0.3f);
+                i.ProductNavigation = f.Random.ListItem(products);
+                i.ItemType = nameof(ShoppingCartItem);
             })
-            .Generate(800)
+            .Generate(400)
             .ToList();
             ShoppingCartItems.AddRange(shoppingCartItems);
             SaveChanges();

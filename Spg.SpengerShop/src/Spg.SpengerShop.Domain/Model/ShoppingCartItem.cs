@@ -10,8 +10,9 @@ namespace Spg.SpengerShop.Domain.Model
     {
         public int ShoppingCartNavigationId { get; set; }
         public virtual ShoppingCart ShoppingCartNavigation { get; set; } = default!;
-        public string ProductNavigationId { get; set; }
+        public string ProductNavigationName { get; set; }
         public virtual Product ProductNavigation { get; set; } = default!;
+        public string ItemType { get; set; } = string.Empty;
 
         protected ShoppingCartItem()
         { }

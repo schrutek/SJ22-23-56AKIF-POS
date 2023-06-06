@@ -7,8 +7,10 @@ using Spg.SpengerShop.Application.CQRS.Products.GetByName.Queries;
 using Spg.SpengerShop.Application.Helpers;
 using Spg.SpengerShop.Application.Products;
 using Spg.SpengerShop.Core;
+using Spg.SpengerShop.Domain.Dtos;
 using Spg.SpengerShop.Domain.Interfaces;
 using Spg.SpengerShop.Domain.Model;
+using Spg.SpengerShop.Infrastructure;
 using Spg.SpengerShop.MvcFrontEnd.Filters;
 using Spg.SpengerShop.MvcFrontEnd.Helpers;
 using Spg.SpengerShop.MvcFrontEnd.Services;
@@ -44,7 +46,7 @@ builder.Services.AddTransient<IAuthService, LocalDbLoginService>();
 // MediatR
 builder.Services.AddMediatR(config => 
     config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-builder.Services.AddTransient<IRequestHandler<GetProductByNameRequest, Product>, GetProductByNameRequestHandler>();
+builder.Services.AddTransient<IRequestHandler<GetProductByNameRequest, ProductDto>, GetProductByNameRequestHandler>();
 builder.Services.AddTransient<IRequestHandler<GetByExpiryDateRequest, IQueryable<Product>>, GetByExpiryDateRequestHandler>();
 
 builder.Services.ConfigureSqLite(connectionString);
@@ -77,6 +79,21 @@ builder.Services.AddScoped<MvcApiAuthService>(services =>
 
 builder.Services.AddHttpContextAccessor();
 // Authentication ********************************************************************
+
+
+
+
+// Wegwerf-Code
+DbContextOptionsBuilder options = new DbContextOptionsBuilder();
+options.UseSqlite(connectionString);
+
+SpengerShopContext db = new SpengerShopContext(options.Options);
+db.Database.EnsureDeleted();
+db.Database.EnsureCreated();
+db.Seed();
+//
+
+
 
 
 var app = builder.Build();

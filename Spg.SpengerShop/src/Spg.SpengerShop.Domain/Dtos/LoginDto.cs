@@ -2,8 +2,9 @@
 {
     public class LoginDto
     {
-        public string UserName { get; set; } = string.Empty;
+        public string UserName { get; set; } = "string.Empty";
         public string Password { get; set; } = string.Empty;
-        public string Role { get; set; }
+        public string Role { get; set; } = string.Empty;
+        public byte[] Password2 { get; set; }
     }
 }

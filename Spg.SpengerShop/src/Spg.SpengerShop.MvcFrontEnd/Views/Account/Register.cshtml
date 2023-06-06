@@ -1,0 +1,54 @@
+﻿@model RegisterDto
+
+<form method="post">
+    <div asp-validation-summary=All></div>
+
+    <div>
+       @* <label @Html.LabelFor(l => l.Gender)>Geschlecht:</label>*@
+
+        <label asp-for="@Model.Gender">Geschlecht:</label>
+        <input asp-for="@Model.Gender" />
+        <span asp-validation-for="@Model.Gender"></span>
+    </div>
+    <div>
+        <label asp-for="@Model.FirstName">Vorname:</label>
+        <input asp-for="@Model.FirstName" />
+        <span asp-validation-for="@Model.FirstName"></span>
+    </div>
+    <div>
+        <label asp-for="@Model.LastName">Nachname:</label>
+        <input asp-for="@Model.LastName" />
+        <span asp-validation-for="@Model.LastName"></span>
+    </div>
+    <div>
+        <label asp-for="@Model.EMail">E-Mail-Adresse:</label>
+        <input type="email" asp-for="@Model.EMail" />
+        <span asp-validation-for="@Model.EMail"></span>
+    </div>
+    <div>
+        <label asp-for="@Model.BirthDate">Geburtsdatum:</label>
+        <input type="date" asp-for="@Model.BirthDate" />
+        <span asp-validation-for="@Model.BirthDate"></span>
+    </div>
+    <div>
+        <label asp-for="@Model.UserName">Benutzername:</label>
+        <input asp-for="@Model.UserName" />
+        <span asp-validation-for="@Model.UserName"></span>
+    </div>
+    <div>
+        <label asp-for="@Model.Password">Passwort:</label>
+        <input type="password" asp-for="@Model.Password" />
+        <span asp-validation-for="@Model.Password"></span>
+    </div>
+    <div>
+        <label asp-for="@Model.ConfirmPassword">Passwort wiederholen:</label>
+        <input type="password" asp-for="@Model.ConfirmPassword" />
+        <span asp-validation-for="@Model.ConfirmPassword"></span>
+    </div>
+    <hr />
+    <button type="submit">Senden</button>
+</form>
+
+@section Scripts {
+    await @Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
